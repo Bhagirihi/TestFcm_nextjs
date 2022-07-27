@@ -8,7 +8,7 @@ export default function HomePage() {
   const onClick = () => setShowResults(!showResults)
 
   // Update inputs value
-  const handleParam = () => (e) => {
+  const handleParam = () => (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
     setQuery((prevState) => ({
