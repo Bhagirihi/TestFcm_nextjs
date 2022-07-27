@@ -1,6 +1,3 @@
-
-
-
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
@@ -9,7 +6,6 @@ import Header from '@/pages/_header';
 import Notification from '@/pages/_notificationfield';
 
 export default function HomePage() {
-
   return (
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
@@ -24,7 +20,7 @@ export default function HomePage() {
             <div className=' flex min-h-screen w-full  bg-white p-5 md:w-1/2 md:p-8'>
               <div className='flex w-full flex-col'>
                 <Header />
-                <div className='p-1  md:p-6 w-full'>
+                <div className='w-full  p-1 md:p-6'>
                   <Notification />
                 </div>
               </div>
