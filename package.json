@@ -1,5 +1,5 @@
 {
-  "name": "ts-nextjs-tailwind-starter",
+  "name": "TestFcm",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
     "format": "prettier -w .",
     "format:check": "prettier -c .",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "prepare": "husky install"
+    // "prepare": "husky install"
   },
   "dependencies": {
     "clsx": "^1.2.1",
