@@ -42,7 +42,6 @@ export default function HomePage() {
       },
       body: FCMData,
     });
-    console.log('formData', formData, query);
   };
   return (
     <form onSubmit={formSubmit}>
