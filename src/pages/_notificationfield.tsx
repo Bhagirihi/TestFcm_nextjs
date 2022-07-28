@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function HomePage() {
   const [query, setQuery] = useState({});
-  const [showResults, setShowResults] = useState(false);
+  const [showResults, setShowResults] = useState(true);
   const onClick = () => setShowResults(!showResults);
 
   // Update inputs value
