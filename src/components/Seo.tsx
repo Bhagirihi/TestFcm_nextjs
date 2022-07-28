@@ -15,7 +15,7 @@ const defaultMeta = {
    * No need to be filled, will be populated with openGraph function
    * If you wish to use a normal image, just specify the path below
    */
-  image: 'https://tsnext-tw.thcl.dev/images/large-og.png',
+  //image: 'https://tsnext-tw.thcl.dev/images/large-og.png',
 };
 
 type SeoProps = {
@@ -48,6 +48,8 @@ export default function Seo(props: SeoProps) {
       <title>{meta.title}</title>
       <meta name='robots' content={meta.robots} />
       <meta content={meta.description} name='description' />
+      <meta name="keywords"
+        content="Test FCM, Online FCM testing tool, Firebase Cloud Messaging, Try Firebase Cloud Messaging, Test Push Notifiaction Online, FCM messages test notification, CM, Firebase iOS, FCM Tester, FCM iOS, Firebase Android, apns production ios, ios push notifications, push notifications for iOS and android, apps with push notifications, Apple push notification service for iPhone and iPad, push messaging, google cloud messaging ios, gcm push notification and android push test, push testers, online testing apns, test gcm online, send gcm notification online, gcm message, GCM, APNS" className="next-head" />
       <meta property='og:url' content={`${meta.url}${router.asPath}`} />
       <link rel='canonical' href={`${meta.url}${router.asPath}`} />
       {/* Open Graph */}
