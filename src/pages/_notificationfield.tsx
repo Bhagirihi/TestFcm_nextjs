@@ -40,7 +40,9 @@ export default function HomePage() {
         Authorization: `key=${serverkey}`,
       },
       body: FCMData,
-    });
+    })
+      .then((res) => alert(JSON.stringify(res)))
+      .catch((e) => alert(JSON.stringify(e)));
   };
   return (
     <form onSubmit={formSubmit}>

@@ -8,7 +8,7 @@ const defaultMeta = {
   description:
     'Online tool for testing Firebase Cloud Messaging (FCM) push notification from your browser.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  url: 'https://tsnext-tw.thcl.dev',
+  url: 'https://test-fcm-nextjs.vercel.app/',
   type: 'website',
   robots: 'follow, index',
   /**
