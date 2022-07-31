@@ -30,6 +30,12 @@ module.exports = {
     });
     return config;
   },
+  rewrites: async () => [
+    {
+      source: '/public/Dummy.html',
+      destination: '/pages/api/Dummy.js',
+    },
+  ],
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if

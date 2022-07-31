@@ -8,7 +8,7 @@ const defaultMeta = {
   description:
     'Online tool for testing Firebase Cloud Messaging (FCM) push notification from your browser.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  url: 'https://test-fcm-nextjs.vercel.app/',
+  url: 'https://www.testfcm.in/',
   type: 'website',
   robots: 'follow, index',
   /**
@@ -46,6 +46,7 @@ export default function Seo(props: SeoProps) {
   return (
     <Head>
       <title>{meta.title}</title>
+      <meta name="google-site-verification" content="W6UjtF3maZMRBigZE1n56Z8nsQXPaSbDvdnL-a8sLC8" />
       <meta name='robots' content={meta.robots} />
       <meta content={meta.description} name='description' />
       <meta name="keywords"

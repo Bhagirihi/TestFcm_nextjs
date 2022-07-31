@@ -39,9 +39,9 @@ export default function HomePage() {
         'Content-Type': 'application/json',
         Authorization: `key=${serverkey}`,
       },
-      body: FCMData,
+      body: JSON.stringify(FCMData),
     })
-      .then((res) => alert(JSON.stringify(res)))
+      .then((res) => console.log(res))
       .catch((e) => alert(JSON.stringify(e)));
   };
   return (
@@ -179,19 +179,43 @@ export default function HomePage() {
           </div>
         )}
       </div>
-      <button
-        type='submit'
-        className='mr-4 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto md:w-80'
-      >
-        Push Notification
-      </button>
 
-      <button
-        type='submit'
-        className='rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto md:w-36'
-      >
-        Save Locally
-      </button>
+      {/* <button
+          type='submit'
+          className='mr-4 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-full md:w-80'
+        >
+          Push Notification
+        </button>
+
+        <button
+          type='submit'
+          className='hidden md:flex rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  md:w-36'
+        >
+          Save Locally
+        </button> */}
+
+      <div className="flex mb-4 content-center justify-center">
+        <div className="w-2/3   rounded-lg " disabled>
+          <button
+            type='submit'
+            className=' text-white w-full bg-blue-400 bg-opacity-60 text-lg font-medium p-2 rounded-lg '
+          >
+            Push Notification
+          </button>
+        </div>
+        <div className='hidden md:flex  md:vis w-4'></div>
+        <div className="hidden md:flex  w-1/3 rounded-lg "
+          disabled>
+          <button
+            type='submit'
+            className='text-lg font-medium p-2 text-blue-300 border-blue-300 border-2 w-full cursor-not-allowed rounded-lg bg-white focus:outline-none disabled:opacity-75'
+          >
+            Save Locally
+          </button>
+        </div>
+
+      </div>
+
     </form>
   );
 }

@@ -7,6 +7,7 @@ import Notification from '@/pages/_notificationfield';
 
 export default function HomePage() {
   return (
+
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
       <Seo />
