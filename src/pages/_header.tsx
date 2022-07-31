@@ -2,6 +2,7 @@ import { useTheme } from 'next-themes';
 
 import DarkMoon from '~/svg/DarkMoon.svg';
 import Firebase from '~/svg/Firebase.svg';
+import Sun from '~/svg/Sun.svg';
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
@@ -16,10 +17,14 @@ export default function Header() {
         </h2>
       </div>
       <button
-        className=' w-27 rounded-md border p-3 text-right hover:bg-slate-200'
+        className=' w-27 rounded-md border p-3 text-right dark:border-sunborderd dark:border-4 dark:hover:bg-hoverd'
         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       >
-        <DarkMoon className='flex h-5 w-5 items-center text-center' />
+        {
+          theme === 'dark' ? <Sun className='flex h-5 w-5 items-center text-center' /> :
+            <DarkMoon className='flex h-5 w-5 items-center text-center' />
+        }
+
       </button>
     </div>
   );

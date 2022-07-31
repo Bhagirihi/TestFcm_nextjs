@@ -51,7 +51,7 @@ export default function HomePage() {
           <div className='mb-3'>
             <label
               htmlFor='default-input'
-              className='mb-2 block text-sm font-medium text-gray-900'
+              className='mb-2 block text-sm font-medium'
             >
               Server Key
             </label>
@@ -59,7 +59,7 @@ export default function HomePage() {
               type='text'
               id='default-input'
               placeholder='Server Key'
-              className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+              className='block w-full rounded-lg border  dark:border-borderd dark:bg-darkl border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
               required
               onChange={handleParam()}
               name='serverkey'
@@ -69,7 +69,7 @@ export default function HomePage() {
           <div className='mb-3'>
             <label
               htmlFor='default-input'
-              className='mb-2 block text-sm font-medium text-gray-900  '
+              className='mb-2 block text-sm font-medium'
             >
               FCM Registration Token (Device Token)
             </label>
@@ -77,7 +77,7 @@ export default function HomePage() {
               type='text'
               id='default-input'
               placeholder='FCM Registration Token (Device Token)'
-              className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+              className='block w-full rounded-lg border  dark:border-borderd dark:bg-darkl border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
               required
               onChange={handleParam()}
               name='fcmtoken'
@@ -87,7 +87,7 @@ export default function HomePage() {
           <div className='mb-3'>
             <label
               htmlFor='default-input'
-              className='mb-2 block text-sm font-medium text-gray-900  '
+              className='mb-2 block text-sm font-medium'
             >
               Title
             </label>
@@ -95,7 +95,7 @@ export default function HomePage() {
               type='text'
               id='default-input'
               placeholder='Notification Title'
-              className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+              className='block w-full rounded-lg border  dark:border-borderd dark:bg-darkl border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
               required
               onChange={handleParam()}
               name='title'
@@ -105,12 +105,12 @@ export default function HomePage() {
           <div className='mb-3'>
             <label
               htmlFor='default-input'
-              className='mb-2 block text-sm font-medium text-gray-900  '
+              className='mb-2 block text-sm font-medium'
             >
               Body
             </label>
             <textarea
-              className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500   '
+              className='block w-full rounded-lg border  dark:border-borderd dark:bg-darkl border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500   '
               id='exampleFormControlTextarea1'
               placeholder='Notification body'
               required
@@ -120,7 +120,7 @@ export default function HomePage() {
           </div>
         </div>
         <p
-          className='m-4 text-center text-sm font-bold text-blue-500'
+          className='m-4 text-center text-sm font-bold text-buttonh dark:text-buttonhd'
           onClick={onClick}
         >
           Hide Optional
@@ -130,7 +130,7 @@ export default function HomePage() {
             <div className='mb-3'>
               <label
                 htmlFor='default-input'
-                className='mb-2 block text-sm font-medium text-gray-900  '
+                className='mb-2 block text-sm font-medium'
               >
                 Click Action URL - (optional)
               </label>
@@ -138,7 +138,7 @@ export default function HomePage() {
                 type='url'
                 id='default-input'
                 placeholder='URL to redirect'
-                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+                className='block w-full rounded-lg border dark:bg-darkl  dark:border-borderd border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
                 onChange={handleParam()}
                 name='redirect'
               />
@@ -147,7 +147,7 @@ export default function HomePage() {
             <div className='mb-3'>
               <label
                 htmlFor='default-input'
-                className='mb-2 block text-sm font-medium text-gray-900  '
+                className='mb-2 block text-sm font-medium'
               >
                 Icon URL - (optional)
               </label>
@@ -155,7 +155,7 @@ export default function HomePage() {
                 type='url'
                 id='default-input'
                 placeholder='Icor url'
-                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+                className='block w-full rounded-lg border dark:bg-darkl dark:border-borderd border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
                 onChange={handleParam()}
                 name='icon'
               />
@@ -164,12 +164,12 @@ export default function HomePage() {
             <div className='mb-3'>
               <label
                 htmlFor='default-input'
-                className='mb-2 block text-sm font-medium text-gray-900  '
+                className='mb-2 block text-sm font-medium'
               >
                 Data - (optional)
               </label>
               <textarea
-                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500   '
+                className='block w-full rounded-lg border dark:bg-darkl  dark:border-borderd border-gray-300  p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500   '
                 id='exampleFormControlTextarea1'
                 placeholder="Must be JSON Object like { 'key': 'value' }"
                 name='data'
@@ -198,7 +198,7 @@ export default function HomePage() {
         <div className="w-2/3   rounded-lg " disabled>
           <button
             type='submit'
-            className=' text-white w-full bg-blue-400 bg-opacity-60 text-lg font-medium p-2 rounded-lg '
+            className=' text-white dark:text-textd  w-full bg-opacity-30 bg-button dark:bg-buttond bg-opacity-60 text-lg font-medium p-2 rounded-lg '
           >
             Push Notification
           </button>
@@ -208,7 +208,7 @@ export default function HomePage() {
           disabled>
           <button
             type='submit'
-            className='text-lg font-medium p-2 text-blue-300 border-blue-300 border-2 w-full cursor-not-allowed rounded-lg bg-white focus:outline-none disabled:opacity-75'
+            className='text-buttonsl dark:text-buttonsd font-medium p-2 text-blue-300 dark:border-borderd border-blue-300 border-2 w-full cursor-not-allowed rounded-lg bg-transparent disabled:opacity-75'
           >
             Save Locally
           </button>
