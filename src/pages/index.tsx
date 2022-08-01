@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
@@ -30,6 +32,7 @@ export default function HomePage() {
           </div>
         </section>
       </main>
+      <ToastContainer />
     </Layout>
   );
 }

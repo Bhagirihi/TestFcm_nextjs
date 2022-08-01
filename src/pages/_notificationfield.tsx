@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 
+import { Error, Success } from '@/components/toast';
+
 export default function HomePage() {
   const [query, setQuery] = useState({});
   const [showResults, setShowResults] = useState<boolean>(true);
-  const [deviceType, setDeviceType] = useState<string>("Desktop")
+  const [deviceType, setDeviceType] = useState<string>('Desktop');
 
   const onClick = () => setShowResults(!showResults);
   useEffect(() => {
@@ -12,14 +14,12 @@ export default function HomePage() {
         navigator.userAgent
       )
     ) {
-      setShowResults(false)
-      setDeviceType("Mobile");
-
+      setShowResults(false);
+      setDeviceType('Mobile');
     } else {
-      setDeviceType("Desktop");
-      setShowResults(true)
+      setDeviceType('Desktop');
+      setShowResults(true);
     }
-
   }, [deviceType]);
   // Update inputs value
   const handleParam = () => (e: any) => {
@@ -57,8 +57,15 @@ export default function HomePage() {
       },
       body: JSON.stringify(FCMData),
     })
-      .then((res) => console.log(res))
-      .catch((e) => alert(JSON.stringify(e)));
+      .then((res) => {
+        const newLocal = res.status;
+        newLocal == '200'
+          ? (Success('Notificatio Send.'))
+          : (Error('Could Not Send Notification.'))
+      })
+      .catch((e) => {
+        console.log('E', e), Error('Could Not Notificatio Send.');
+      });
   };
   return (
     <form onSubmit={formSubmit}>
@@ -75,7 +82,7 @@ export default function HomePage() {
               type='text'
               id='default-input'
               placeholder='Server Key'
-              className='block w-full rounded-lg border  dark:border-borderd dark:bg-darkl border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
               required
               onChange={handleParam()}
               name='serverkey'
@@ -93,7 +100,7 @@ export default function HomePage() {
               type='text'
               id='default-input'
               placeholder='FCM Registration Token (Device Token)'
-              className='block w-full rounded-lg border  dark:border-borderd dark:bg-darkl border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
               required
               onChange={handleParam()}
               name='fcmtoken'
@@ -111,7 +118,7 @@ export default function HomePage() {
               type='text'
               id='default-input'
               placeholder='Notification Title'
-              className='block w-full rounded-lg border  dark:border-borderd dark:bg-darkl border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
               required
               onChange={handleParam()}
               name='title'
@@ -126,7 +133,7 @@ export default function HomePage() {
               Body
             </label>
             <textarea
-              className='block w-full rounded-lg border  dark:border-borderd dark:bg-darkl border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500   '
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl   '
               id='exampleFormControlTextarea1'
               placeholder='Notification body'
               required
@@ -154,7 +161,7 @@ export default function HomePage() {
                 type='url'
                 id='default-input'
                 placeholder='URL to redirect'
-                className='block w-full rounded-lg border dark:bg-darkl  dark:border-borderd border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+                className='block w-full rounded-lg border border-gray-300  bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
                 onChange={handleParam()}
                 name='redirect'
               />
@@ -171,7 +178,7 @@ export default function HomePage() {
                 type='url'
                 id='default-input'
                 placeholder='Icor url'
-                className='block w-full rounded-lg border dark:bg-darkl dark:border-borderd border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
                 onChange={handleParam()}
                 name='icon'
               />
@@ -185,7 +192,7 @@ export default function HomePage() {
                 Data - (optional)
               </label>
               <textarea
-                className='block w-full rounded-lg border dark:bg-darkl  dark:border-borderd border-gray-300  p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500   '
+                className='block w-full rounded-lg border border-gray-300  p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl   '
                 id='exampleFormControlTextarea1'
                 placeholder="Must be JSON Object like { 'key': 'value' }"
                 name='data'
@@ -210,28 +217,25 @@ export default function HomePage() {
           Save Locally
         </button> */}
 
-      <div className="flex mb-4 content-center justify-center">
-        <div className="w-2/3   rounded-lg " disabled>
+      <div className='mb-4 flex content-center justify-center'>
+        <div className='w-2/3   rounded-lg ' disabled>
           <button
             type='submit'
-            className=' text-white dark:text-textd  w-full bg-opacity-30 bg-button dark:bg-buttond bg-opacity-60 text-lg font-medium p-2 rounded-lg '
+            className=' w-full rounded-lg  bg-button bg-opacity-30 bg-opacity-60 p-2 text-lg font-medium text-white dark:bg-buttond dark:text-textd '
           >
             Push Notification
           </button>
         </div>
-        <div className='hidden md:flex  md:vis w-4'></div>
-        <div className="hidden md:flex  w-1/3 rounded-lg "
-          disabled>
+        <div className='md:vis hidden  w-4 md:flex'></div>
+        <div className='hidden w-1/3  rounded-lg md:flex ' disabled>
           <button
             type='submit'
-            className='text-buttonsl dark:text-buttonsd font-medium p-2 text-blue-300 dark:border-borderd border-blue-300 border-2 w-full cursor-not-allowed rounded-lg bg-transparent disabled:opacity-75'
+            className='w-full cursor-not-allowed rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd'
           >
             Save Locally
           </button>
         </div>
-
       </div>
-
     </form>
   );
 }
