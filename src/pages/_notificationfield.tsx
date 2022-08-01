@@ -1,10 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function HomePage() {
   const [query, setQuery] = useState({});
-  const [showResults, setShowResults] = useState(true);
-  const onClick = () => setShowResults(!showResults);
+  const [showResults, setShowResults] = useState<boolean>(true);
+  const [deviceType, setDeviceType] = useState<string>("Desktop")
 
+  const onClick = () => setShowResults(!showResults);
+  useEffect(() => {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone/i.test(
+        navigator.userAgent
+      )
+    ) {
+      setShowResults(false)
+      setDeviceType("Mobile");
+
+    } else {
+      setDeviceType("Desktop");
+      setShowResults(true)
+    }
+
+  }, [deviceType]);
   // Update inputs value
   const handleParam = () => (e: any) => {
     const name = e.target.name;
@@ -119,12 +135,12 @@ export default function HomePage() {
             ></textarea>
           </div>
         </div>
-        <p
+        <div
           className='m-4 text-center text-sm font-bold text-buttonh dark:text-buttonhd'
           onClick={onClick}
         >
-          Hide Optional
-        </p>
+          {showResults ? 'Hide Optional' : 'Show Optional'}
+        </div>
         {showResults && (
           <div>
             <div className='mb-3'>
