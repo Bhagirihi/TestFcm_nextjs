@@ -82,7 +82,7 @@ export default function HomePage() {
               type='text'
               id='default-input'
               placeholder='Server Key'
-              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
               required
               onChange={handleParam()}
               name='serverkey'
@@ -100,7 +100,7 @@ export default function HomePage() {
               type='text'
               id='default-input'
               placeholder='FCM Registration Token (Device Token)'
-              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
               required
               onChange={handleParam()}
               name='fcmtoken'
@@ -118,7 +118,7 @@ export default function HomePage() {
               type='text'
               id='default-input'
               placeholder='Notification Title'
-              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
               required
               onChange={handleParam()}
               name='title'
@@ -133,7 +133,7 @@ export default function HomePage() {
               Body
             </label>
             <textarea
-              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl   '
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl   '
               id='exampleFormControlTextarea1'
               placeholder='Notification body'
               required
@@ -161,7 +161,7 @@ export default function HomePage() {
                 type='url'
                 id='default-input'
                 placeholder='URL to redirect'
-                className='block w-full rounded-lg border border-gray-300  bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+                className='block w-full rounded-lg border border-gray-300  bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
                 onChange={handleParam()}
                 name='redirect'
               />
@@ -178,7 +178,7 @@ export default function HomePage() {
                 type='url'
                 id='default-input'
                 placeholder='Icor url'
-                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
                 onChange={handleParam()}
                 name='icon'
               />
@@ -192,7 +192,7 @@ export default function HomePage() {
                 Data - (optional)
               </label>
               <textarea
-                className='block w-full rounded-lg border border-gray-300  p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl   '
+                className='block w-full rounded-lg border border-gray-300  p-2.5 text-sm  focus:border-blue-500 dark:text-slate-50 focus:ring-blue-500 dark:border-borderd dark:bg-darkl   '
                 id='exampleFormControlTextarea1'
                 placeholder="Must be JSON Object like { 'key': 'value' }"
                 name='data'
