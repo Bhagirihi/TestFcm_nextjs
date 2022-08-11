@@ -8,7 +8,7 @@ import '@/styles/colors.css';
 
 import Seo from '@/components/Seo';
 
-import { wrapper } from "../../redux/store"
+import { wrapper } from '../../redux/store';
 
 /**
  * !STARTERCONF info
@@ -18,9 +18,13 @@ import { wrapper } from "../../redux/store"
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Script id="GOOGLE_ANALYTICS_ID" strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
+      <Script
+        id='GOOGLE_ANALYTICS_ID'
+        strategy='lazyOnload'
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
 
-      <Script id="GOOGLE_ANALYTICS_SCRIPT" strategy="lazyOnload">
+      <Script id='GOOGLE_ANALYTICS_SCRIPT' strategy='lazyOnload'>
         {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

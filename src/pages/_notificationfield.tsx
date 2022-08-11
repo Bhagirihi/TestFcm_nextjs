@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import { connect } from "react-redux"
+import { connect } from 'react-redux';
 
 import { Error, Success } from '@/components/toast';
 
-import { setInfo, setpopup } from "../../redux/actions/main"
+import { setInfo, setpopup } from '../../redux/actions/main';
 
 function HomePage(props: any) {
   const [query, setQuery] = useState({});
   const [showResults, setShowResults] = useState<boolean>(true);
   const [disable, setDisable] = useState<boolean>(true);
   const [deviceType, setDeviceType] = useState<string>('Desktop');
-  const { name, setInfo, setpopup } = props
+  const { name, setInfo, setpopup } = props;
 
   const onClick = () => setShowResults(!showResults);
   useEffect(() => {
@@ -35,7 +35,7 @@ function HomePage(props: any) {
       [name]: value,
     }));
     if (query.serverkey && query.body && query.fcmtoken && query.title) {
-      setDisable(false)
+      setDisable(false);
     }
   };
 
@@ -47,9 +47,12 @@ function HomePage(props: any) {
       formData.append(key, value);
     });
     const { fcmtoken, serverkey, body, title, data } = query;
-    console.log("---------serverkey && body && fcmtoken && title", serverkey && body && fcmtoken && title)
+    console.log(
+      '---------serverkey && body && fcmtoken && title',
+      serverkey && body && fcmtoken && title
+    );
     if (serverkey && body && fcmtoken && title == undefined) {
-      return Error('Please giveus some Input.')
+      return Error('Please giveus some Input.');
     }
     const FCMData = {
       to: fcmtoken,
@@ -63,18 +66,15 @@ function HomePage(props: any) {
     };
     const localItem = {
       data: FCMData,
-      Serverkey: serverkey
-    }
+      Serverkey: serverkey,
+    };
     //window.localStorage.setItem('localItems', JSON.stringify(localItem));
-    await setInfo(localItem)
-    await setpopup(true)
-    await console.log("props on save local clcikc", props)
-
-  }
+    await setInfo(localItem);
+    await setpopup(true);
+    await console.log('props on save local clcikc', props);
+  };
   // Form Submit function
   const pushnotification = (e: any) => {
-
-
     e.preventDefault();
     const formData = new FormData();
     Object.entries(query).forEach(([key, value]) => {
@@ -101,10 +101,9 @@ function HomePage(props: any) {
       body: JSON.stringify(FCMData),
     })
       .then((res) => {
-
         res.status == '200'
-          ? (Success('Notificatio Send.'))
-          : (Error('Could Not Send Notification.'))
+          ? Success('Notificatio Send.')
+          : Error('Could Not Send Notification.');
       })
       .catch((e) => {
         console.log('E', e), Error('Could Not Notificatio Send.');
@@ -125,7 +124,7 @@ function HomePage(props: any) {
               type='text'
               id='default-input'
               placeholder='Server Key'
-              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50'
               required
               onChange={handleParam()}
               name='serverkey'
@@ -143,7 +142,7 @@ function HomePage(props: any) {
               type='text'
               id='default-input'
               placeholder='FCM Registration Token (Device Token)'
-              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50'
               required
               onChange={handleParam()}
               name='fcmtoken'
@@ -161,7 +160,7 @@ function HomePage(props: any) {
               type='text'
               id='default-input'
               placeholder='Notification Title'
-              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50'
               required
               onChange={handleParam()}
               name='title'
@@ -176,7 +175,7 @@ function HomePage(props: any) {
               Body
             </label>
             <textarea
-              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl   '
+              className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50   '
               id='exampleFormControlTextarea1'
               placeholder='Notification body'
               required
@@ -204,7 +203,7 @@ function HomePage(props: any) {
                 type='url'
                 id='default-input'
                 placeholder='URL to redirect'
-                className='block w-full rounded-lg border border-gray-300  bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+                className='block w-full rounded-lg border border-gray-300  bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50'
                 onChange={handleParam()}
                 name='redirect'
               />
@@ -221,7 +220,7 @@ function HomePage(props: any) {
                 type='url'
                 id='default-input'
                 placeholder='Icor url'
-                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:text-slate-50 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl'
+                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50'
                 onChange={handleParam()}
                 name='icon'
               />
@@ -235,7 +234,7 @@ function HomePage(props: any) {
                 Data - (optional)
               </label>
               <textarea
-                className='block w-full rounded-lg border border-gray-300  p-2.5 text-sm  focus:border-blue-500 dark:text-slate-50 focus:ring-blue-500 dark:border-borderd dark:bg-darkl   '
+                className='block w-full rounded-lg border border-gray-300  p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50   '
                 id='exampleFormControlTextarea1'
                 placeholder="Must be JSON Object like { 'key': 'value' }"
                 name='data'
@@ -246,14 +245,10 @@ function HomePage(props: any) {
         )}
       </div>
 
-
-
       <div className='mb-4 flex content-center justify-center'>
         <div className='w-2/3   rounded-lg ' disabled>
           <button
-
             className=' w-full rounded-lg  bg-button bg-opacity-30 bg-opacity-60 p-2 text-lg font-medium text-white dark:bg-buttond dark:text-textd '
-
             onClick={pushnotification}
           >
             Push Notification
@@ -262,7 +257,6 @@ function HomePage(props: any) {
         <div className='md:vis hidden  w-4 md:flex'></div>
         <div className='hidden w-1/3  rounded-lg md:flex ' disabled>
           <button
-
             className='w-full  rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd'
             onClick={savelocal}
           >
@@ -274,12 +268,12 @@ function HomePage(props: any) {
   );
 }
 const mapStateToProps = (state: any) => {
-  return { name: state.main.name }
-}
+  return { name: state.main.name };
+};
 
 const mapDispatchToProps = {
   setInfo,
-  setpopup
-}
+  setpopup,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

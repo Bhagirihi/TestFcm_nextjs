@@ -1,51 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from "react-redux"
+import { connect } from 'react-redux';
 
-import { setpopup } from "../../redux/actions/main"
+import { setpopup } from '../../redux/actions/main';
 
 function Example(props: any) {
-
-  const { popup, name } = props
+  const { popup, name } = props;
   const [isShown, setIsShown] = useState(popup);
   const [request, SetRequest] = useState({});
-
 
   useEffect(() => {
     setIsShown(props.popup);
   }, [props.popup]);
 
-
-
-
   const closeModal = () => {
     setIsShown(false);
-    setpopup(false)
-    console.log("=-=-=-=-=-=-=-=")
+    setpopup(false);
+    console.log('=-=-=-=-=-=-=-=');
   };
 
-
-  const popupvalue = [{
-    name: "Server Key",
-    value: name?.Serverkey
-  }, {
-    name: "User Token",
-    value: name?.data?.to
-  }, {
-    name: "Title",
-    value: name?.data?.notification?.Title
-  }, {
-    name: "Body",
-    value: name?.data?.notification?.body
-  }, {
-    name: "Click Url",
-    value: "A"
-  }, {
-    name: "Icon Url",
-    value: "A"
-  }, {
-    name: "Data",
-    value: "A"
-  }]
+  const popupvalue = [
+    {
+      name: 'Server Key',
+      value: name?.Serverkey,
+    },
+    {
+      name: 'User Token',
+      value: name?.data?.to,
+    },
+    {
+      name: 'Title',
+      value: name?.data?.notification?.Title,
+    },
+    {
+      name: 'Body',
+      value: name?.data?.notification?.body,
+    },
+    {
+      name: 'Click Url',
+      value: 'A',
+    },
+    {
+      name: 'Icon Url',
+      value: 'A',
+    },
+    {
+      name: 'Data',
+      value: 'A',
+    },
+  ];
 
   const dynammicModalClass = () => (isShown ? { display: 'block' } : '');
 
@@ -73,7 +75,6 @@ function Example(props: any) {
     <div className='modal' style={dynammicModalClass()} id='channelModal'>
       <div
         id='small-modal'
-        tabIndex='-1'
         className='h-modal fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-opacity-25 md:inset-0 md:h-full'
         aria-modal='true'
         role='dialog'
@@ -111,7 +112,7 @@ function Example(props: any) {
               <div>
                 <label
                   htmlFor='default-input'
-                  className='mb-2 block text-sm font-medium items-start flex'
+                  className='mb-2 block flex items-start text-sm font-medium'
                 >
                   Request Name
                 </label>
@@ -126,26 +127,25 @@ function Example(props: any) {
                 />
               </div>
               <div>
-                <p className='text-sm p-1 leading-relaxed text-gray-500 dark:text-gray-400'>
+                <p className='p-1 text-sm leading-relaxed text-gray-500 dark:text-gray-400'>
                   Keep the name unique with a maximum of 40 characters
                 </p>
               </div>
 
-              <figure className='dark:highlight-white/5 relative flex flex-col-reverse rounded-lg bg-slate-50 p-2 dark:bg-popupkeyfield items-start justify-satrt'>
+              <figure className='dark:highlight-white/5 justify-satrt relative flex flex-col-reverse items-start rounded-lg bg-slate-50 p-2 dark:bg-popupkeyfield'>
                 <code>
-                  {
-                    popupvalue.map((item) => {
-                      const name = item.name;
-                      const value = item.value
-                      return (
-                        <div className='p-1 flex-row text-left'>
-                          <code className='p-1  bg-popupkeybg text-popupkey mx-3 '>{name}</code>
-                          {value}
-
-                        </div>
-                      )
-                    })
-                  }
+                  {popupvalue.map((item, index) => {
+                    const name = item.name;
+                    const value = item.value;
+                    return (
+                      <div key={index} className='flex-row p-1 text-left'>
+                        <code className='mx-3  bg-popupkeybg p-1 text-popupkey '>
+                          {name}
+                        </code>
+                        {value}
+                      </div>
+                    );
+                  })}
                 </code>
               </figure>
             </div>
@@ -174,11 +174,11 @@ function Example(props: any) {
 }
 
 const mapStateToProps = (state: any) => {
-  return { name: state.main.name }
-}
+  return { name: state.main.name };
+};
 
 const mapDispatchToProps = {
-  setpopup
-}
+  setpopup,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Example)
+export default connect(mapStateToProps, mapDispatchToProps)(Example);

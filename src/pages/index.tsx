@@ -8,9 +8,7 @@ import Header from '@/pages/_header';
 import Notification from '@/pages/_notificationfield';
 
 export default function HomePage() {
-
   return (
-
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
       <Seo />
@@ -18,10 +16,10 @@ export default function HomePage() {
       <main>
         <section className='bg-transparent'>
           <div className='flex text-center'>
-            <div className='hidden min-h-screen dark:bg-darkd  w-1/2 flex-col p-8  md:flex '>
+            <div className='hidden min-h-screen w-1/2  flex-col p-8 dark:bg-darkd  md:flex '>
               <Emailpage />
             </div>
-            <div className=' flex min-h-screen w-full dark:bg-darkl  p-5 md:w-1/2 md:p-8'>
+            <div className=' flex min-h-screen w-full p-5  dark:bg-darkl md:w-1/2 md:p-8'>
               <div className='flex w-full flex-col'>
                 <Header />
                 <div className='w-full  p-1 md:p-6'>
