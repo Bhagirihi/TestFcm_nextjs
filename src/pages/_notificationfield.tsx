@@ -11,7 +11,7 @@ function HomePage(props: any) {
   const [disable, setDisable] = useState<boolean>(true);
   const [deviceType, setDeviceType] = useState<string>('Desktop');
   const { name, setInfo, setpopup } = props;
-
+  console.log(name)
   const onClick = () => setShowResults(!showResults);
   useEffect(() => {
     if (
@@ -37,6 +37,7 @@ function HomePage(props: any) {
     if (query.serverkey && query.body && query.fcmtoken && query.title) {
       setDisable(false);
     }
+    console.log(disable, name)
   };
 
   //Local save

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Example from '../pages/_localItem';
@@ -9,14 +8,10 @@ import Email from '~/svg/Email.svg';
 import Testnotification from '~/svg/Testnotification.svg';
 
 function EmailPage(props: any) {
-  const { name, setInfo, setpopup } = props;
-  const [data, setdata] = useState('');
-  // useEffect(() => {
-  //   const data = console.log("DATa ----------", props,)
 
-  // }, [props])
   const str = 'John Wick';
   const firstChar = str.charAt(0);
+  console.log(props)
 
   return (
     <div className='flex flex-col items-center justify-center'>

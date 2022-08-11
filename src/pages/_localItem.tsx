@@ -58,6 +58,7 @@ function Example(props: any) {
       ...prevState,
       [name]: value,
     }));
+    console.log("req", request)
   };
 
   useEffect(() => {
