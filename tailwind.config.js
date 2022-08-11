@@ -38,6 +38,10 @@ module.exports = {
         buttonh: '#2b6cb0',
         buttonhd: '#8fccf3',
         sunborderd: '#346998',
+        popupbg: '#2D3848',
+        popupkeybg: '#faf08929',
+        popupkey: '#FAF089',
+        popupkeyfield: '#4A5463',
       },
       keyframes: {
         flicker: {

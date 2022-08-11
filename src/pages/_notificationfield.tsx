@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
+import { connect } from "react-redux"
 
 import { Error, Success } from '@/components/toast';
 
-export default function HomePage() {
+import { setInfo, setpopup } from "../../redux/actions/main"
+
+function HomePage(props: any) {
   const [query, setQuery] = useState({});
   const [showResults, setShowResults] = useState<boolean>(true);
+  const [disable, setDisable] = useState<boolean>(true);
   const [deviceType, setDeviceType] = useState<string>('Desktop');
+  const { name, setInfo, setpopup } = props
 
   const onClick = () => setShowResults(!showResults);
   useEffect(() => {
@@ -29,9 +34,47 @@ export default function HomePage() {
       ...prevState,
       [name]: value,
     }));
+    if (query.serverkey && query.body && query.fcmtoken && query.title) {
+      setDisable(false)
+    }
   };
+
+  //Local save
+  const savelocal = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    Object.entries(query).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    const { fcmtoken, serverkey, body, title, data } = query;
+    console.log("---------serverkey && body && fcmtoken && title", serverkey && body && fcmtoken && title)
+    if (serverkey && body && fcmtoken && title == undefined) {
+      return Error('Please giveus some Input.')
+    }
+    const FCMData = {
+      to: fcmtoken,
+      notification: {
+        body: body,
+        content_available: true,
+        priority: 'high',
+        Title: title,
+      },
+      data: data,
+    };
+    const localItem = {
+      data: FCMData,
+      Serverkey: serverkey
+    }
+    //window.localStorage.setItem('localItems', JSON.stringify(localItem));
+    await setInfo(localItem)
+    await setpopup(true)
+    await console.log("props on save local clcikc", props)
+
+  }
   // Form Submit function
-  const formSubmit = (e: any) => {
+  const pushnotification = (e: any) => {
+
+
     e.preventDefault();
     const formData = new FormData();
     Object.entries(query).forEach(([key, value]) => {
@@ -58,8 +101,8 @@ export default function HomePage() {
       body: JSON.stringify(FCMData),
     })
       .then((res) => {
-        const newLocal = res.status;
-        newLocal == '200'
+
+        res.status == '200'
           ? (Success('Notificatio Send.'))
           : (Error('Could Not Send Notification.'))
       })
@@ -68,7 +111,7 @@ export default function HomePage() {
       });
   };
   return (
-    <form onSubmit={formSubmit}>
+    <form>
       <div className='text-start'>
         <div>
           <div className='mb-3'>
@@ -203,25 +246,15 @@ export default function HomePage() {
         )}
       </div>
 
-      {/* <button
-          type='submit'
-          className='mr-4 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-full md:w-80'
-        >
-          Push Notification
-        </button>
 
-        <button
-          type='submit'
-          className='hidden md:flex rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  md:w-36'
-        >
-          Save Locally
-        </button> */}
 
       <div className='mb-4 flex content-center justify-center'>
         <div className='w-2/3   rounded-lg ' disabled>
           <button
-            type='submit'
+
             className=' w-full rounded-lg  bg-button bg-opacity-30 bg-opacity-60 p-2 text-lg font-medium text-white dark:bg-buttond dark:text-textd '
+
+            onClick={pushnotification}
           >
             Push Notification
           </button>
@@ -229,8 +262,9 @@ export default function HomePage() {
         <div className='md:vis hidden  w-4 md:flex'></div>
         <div className='hidden w-1/3  rounded-lg md:flex ' disabled>
           <button
-            type='submit'
-            className='w-full cursor-not-allowed rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd'
+
+            className='w-full  rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd'
+            onClick={savelocal}
           >
             Save Locally
           </button>
@@ -239,3 +273,13 @@ export default function HomePage() {
     </form>
   );
 }
+const mapStateToProps = (state: any) => {
+  return { name: state.main.name }
+}
+
+const mapDispatchToProps = {
+  setInfo,
+  setpopup
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

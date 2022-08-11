@@ -1,12 +1,14 @@
-import { ThemeProvider } from 'next-themes';
 import { AppProps } from 'next/app';
 import Script from 'next/script';
+import { ThemeProvider } from 'next-themes';
 
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
 
 import Seo from '@/components/Seo';
+
+import { wrapper } from "../../redux/store"
 
 /**
  * !STARTERCONF info
@@ -36,4 +38,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
