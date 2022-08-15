@@ -1,21 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { setpopup } from '../../redux/actions/main';
+import { Error } from '@/components/toast';
+
+import { setInfo2, setInfo3 } from '../../redux/actions/main';
 
 function Example(props: any) {
-  const { popup, name } = props;
-  const [isShown, setIsShown] = useState(popup);
+  const { setInfo2, setInfo3, name2, name, name3 } = props;
+  const [isShown, setIsShown] = useState([]);
+  const [savetoname3, Setsavetoname3] = useState(false);
   const [request, SetRequest] = useState({});
 
   useEffect(() => {
-    setIsShown(props.popup);
-  }, [props.popup]);
+    setIsShown(name2);
+  }, [props]);
+
+  useEffect(() => {
+    const name3save = [
+      ...name3,
+      {
+        data: name?.data,
+        Serverkey: name?.Serverkey,
+        Notificationname: request?.requestName,
+      },
+    ];
+
+    if (savetoname3) {
+      setInfo3(name3save);
+    }
+  }, [savetoname3]);
 
   const closeModal = () => {
     setIsShown(false);
-    setpopup(false);
-    console.log('=-=-=-=-=-=-=-=');
+    setInfo2(false);
+  };
+  const accept = async () => {
+    if (!request.requestName) {
+      return Error('Please giveus some Input.');
+    }
+    Setsavetoname3(true);
+    await setInfo2(false);
+    await setIsShown(false);
+    Setsavetoname3(false);
   };
 
   const popupvalue = [
@@ -58,7 +84,6 @@ function Example(props: any) {
       ...prevState,
       [name]: value,
     }));
-    console.log("req", request)
   };
 
   useEffect(() => {
@@ -152,6 +177,7 @@ function Example(props: any) {
             </div>
             <div className='flex items-center space-x-2 rounded-b border-gray-200  p-6 dark:border-gray-600'>
               <button
+                onClick={accept}
                 data-modal-toggle='small-modal'
                 type='button'
                 className='rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
@@ -175,11 +201,16 @@ function Example(props: any) {
 }
 
 const mapStateToProps = (state: any) => {
-  return { name: state.main.name };
+  return {
+    name: state.main.name,
+    name3: state.main.name3,
+    name2: state.main.name2,
+  };
 };
 
 const mapDispatchToProps = {
-  setpopup,
+  setInfo2,
+  setInfo3,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Example);

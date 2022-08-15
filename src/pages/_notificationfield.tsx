@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 
 import { Error, Success } from '@/components/toast';
 
-import { setInfo, setpopup } from '../../redux/actions/main';
+import { setInfo, setInfo2 } from '../../redux/actions/main';
 
 function HomePage(props: any) {
   const [query, setQuery] = useState({});
   const [showResults, setShowResults] = useState<boolean>(true);
   const [disable, setDisable] = useState<boolean>(true);
   const [deviceType, setDeviceType] = useState<string>('Desktop');
-  const { name, setInfo, setpopup } = props;
-  console.log(name)
+  const { setInfo, setInfo2 } = props;
+
   const onClick = () => setShowResults(!showResults);
   useEffect(() => {
     if (
@@ -37,7 +37,6 @@ function HomePage(props: any) {
     if (query.serverkey && query.body && query.fcmtoken && query.title) {
       setDisable(false);
     }
-    console.log(disable, name)
   };
 
   //Local save
@@ -48,11 +47,13 @@ function HomePage(props: any) {
       formData.append(key, value);
     });
     const { fcmtoken, serverkey, body, title, data } = query;
-    console.log(
-      '---------serverkey && body && fcmtoken && title',
-      serverkey && body && fcmtoken && title
-    );
-    if (serverkey && body && fcmtoken && title == undefined) {
+
+    if (
+      serverkey == undefined ||
+      body == undefined ||
+      fcmtoken == undefined ||
+      title == undefined
+    ) {
       return Error('Please giveus some Input.');
     }
     const FCMData = {
@@ -71,8 +72,7 @@ function HomePage(props: any) {
     };
     //window.localStorage.setItem('localItems', JSON.stringify(localItem));
     await setInfo(localItem);
-    await setpopup(true);
-    await console.log('props on save local clcikc', props);
+    await setInfo2(true);
   };
   // Form Submit function
   const pushnotification = (e: any) => {
@@ -247,18 +247,20 @@ function HomePage(props: any) {
       </div>
 
       <div className='mb-4 flex content-center justify-center'>
-        <div className='w-2/3   rounded-lg ' disabled>
+        <div className='w-2/3   rounded-lg '>
           <button
-            className=' w-full rounded-lg  bg-button bg-opacity-30 bg-opacity-60 p-2 text-lg font-medium text-white dark:bg-buttond dark:text-textd '
+            //  disabled={disable}
+            className='w-full rounded-lg  bg-button bg-opacity-30 bg-opacity-60 p-2 text-lg font-medium text-white dark:bg-buttond dark:text-textd '
             onClick={pushnotification}
           >
             Push Notification
           </button>
         </div>
         <div className='md:vis hidden  w-4 md:flex'></div>
-        <div className='hidden w-1/3  rounded-lg md:flex ' disabled>
+        <div className='hidden w-1/3  rounded-lg md:flex ' >
           <button
-            className='w-full  rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd'
+            disabled={disable}
+            className="w-full  rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd"
             onClick={savelocal}
           >
             Save Locally
@@ -269,12 +271,12 @@ function HomePage(props: any) {
   );
 }
 const mapStateToProps = (state: any) => {
-  return { name: state.main.name };
+  return { name: state.main.name, name2: state.main.name2 };
 };
 
 const mapDispatchToProps = {
   setInfo,
-  setpopup,
+  setInfo2,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -16,7 +16,6 @@ interface Props {
 }
 
 export const Success: React.FC<ToastContent, Props> = (messageprops) => {
-  console.log('------', messageprops);
   toast.success(messageprops, {
     position: 'top-left',
     autoClose: 3000,
