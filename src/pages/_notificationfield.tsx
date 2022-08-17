@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { Error, Success } from '@/components/toast';
+import { Error } from '@/components/toast';
 
-import { setInfo, setInfo2 } from '../../redux/actions/main';
+import { sendNotification, setInfo, setInfo2 } from '../../redux/actions/main';
 
 function HomePage(props: any) {
   const [query, setQuery] = useState({});
   const [showResults, setShowResults] = useState<boolean>(true);
   const [disable, setDisable] = useState<boolean>(true);
   const [deviceType, setDeviceType] = useState<string>('Desktop');
-  const { setInfo, setInfo2 } = props;
+  const { setInfo, setInfo2, sendNotification } = props;
+
 
   const onClick = () => setShowResults(!showResults);
   useEffect(() => {
@@ -41,11 +42,9 @@ function HomePage(props: any) {
 
   //Local save
   const savelocal = async (e) => {
+    console.log("-------------------------------------")
     e.preventDefault();
-    const formData = new FormData();
-    Object.entries(query).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+
     const { fcmtoken, serverkey, body, title, data } = query;
 
     if (
@@ -75,40 +74,9 @@ function HomePage(props: any) {
     await setInfo2(true);
   };
   // Form Submit function
-  const pushnotification = (e: any) => {
+  const pushnotification = async (e: any) => {
     e.preventDefault();
-    const formData = new FormData();
-    Object.entries(query).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    const { fcmtoken, serverkey, body, title, data } = query;
-    const FCMData = {
-      to: fcmtoken,
-      notification: {
-        body: body,
-        content_available: true,
-        priority: 'high',
-        Title: title,
-      },
-      data: data,
-    };
-
-    fetch('https://fcm.googleapis.com/fcm/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `key=${serverkey}`,
-      },
-      body: JSON.stringify(FCMData),
-    })
-      .then((res) => {
-        res.status == '200'
-          ? Success('Notificatio Send.')
-          : Error('Could Not Send Notification.');
-      })
-      .catch((e) => {
-        console.log('E', e), Error('Could Not Notificatio Send.');
-      });
+    await sendNotification(query)
   };
   return (
     <form>
@@ -274,9 +242,15 @@ const mapStateToProps = (state: any) => {
   return { name: state.main.name, name2: state.main.name2 };
 };
 
-const mapDispatchToProps = {
-  setInfo,
-  setInfo2,
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setInfo: (data: any) => dispatch(setInfo(data)),
+    setInfo2: (data: any) => dispatch(setInfo2(data)),
+    sendNotification: (data: any) =>
+      dispatch(
+        sendNotification(data)
+      )
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

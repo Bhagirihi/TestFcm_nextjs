@@ -7,12 +7,13 @@ import { setInfo2, setInfo3 } from '../../redux/actions/main';
 
 function Example(props: any) {
   const { setInfo2, setInfo3, name2, name, name3 } = props;
-  const [isShown, setIsShown] = useState([]);
+  const [isShown, setIsShown] = useState(false);
   const [savetoname3, Setsavetoname3] = useState(false);
   const [request, SetRequest] = useState({});
 
   useEffect(() => {
     setIsShown(name2);
+    console.log("name 2", name2)
   }, [props]);
 
   useEffect(() => {

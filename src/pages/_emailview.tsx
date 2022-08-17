@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import Example from '../pages/_localItem';
-import { setInfo, setInfo2, setInfo3 } from '../../redux/actions/main';
+import { sendNotification, setInfo, setInfo2, setInfo3 } from '../../redux/actions/main';
 
 import Delete from '~/svg/Delete.svg';
 import Email from '~/svg/Email.svg';
 import Testnotification from '~/svg/Testnotification.svg';
 
 function EmailPage(props: any) {
-  const { name3, setInfo3 } = props;
+  const { name3, setInfo3, sendNotification } = props;
   const [list, setlist] = useState([]);
   const [nothing, setnothing] = useState(false);
 
@@ -17,8 +17,9 @@ function EmailPage(props: any) {
     setlist(name3);
   }, [props]);
 
-  const onClickTest = (d: any) => {
-    console.log('onClickTest', d);
+  const onClickTest = async (data: any) => {
+    console.log('onClickTest', data);
+    await sendNotification(data)
   };
 
   const onClickDel = async (idx: number) => {
@@ -117,10 +118,17 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = {
-  setInfo,
-  setInfo2,
-  setInfo3,
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setInfo: (data: any) => dispatch(setInfo(data)),
+    setInfo2: (data: any) => dispatch(setInfo2(data)),
+    setInfo3: (data: any) => dispatch(setInfo3(data)),
+    sendNotification: (data: any) =>
+      dispatch(
+        sendNotification(data)
+      )
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmailPage);

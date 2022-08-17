@@ -25,6 +25,7 @@ type SeoProps = {
 
 export default function Seo(props: SeoProps) {
   const router = useRouter();
+
   const meta = {
     ...defaultMeta,
     ...props,
