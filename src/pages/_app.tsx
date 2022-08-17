@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       {
         process.env.NODE_ENV !== 'development' &&
 
-        <Script>
+        <Script id='BLOBK_INSPECT' >
           {`
         // Disable right-click
         document.addEventListener('contextmenu', (e) => e.preventDefault());
