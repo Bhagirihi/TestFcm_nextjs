@@ -13,7 +13,7 @@ function Example(props: any) {
 
   useEffect(() => {
     setIsShown(name2);
-    console.log("name 2", name2)
+    console.log('name 2', name2);
   }, [props]);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ function Example(props: any) {
     },
     {
       name: 'Title',
-      value: name?.data?.notification?.Title,
+      value: name?.data?.notification?.title,
     },
     {
       name: 'Body',
@@ -64,15 +64,15 @@ function Example(props: any) {
     },
     {
       name: 'Click Url',
-      value: 'A',
+      value: name?.data?.notification?.redirect,
     },
     {
       name: 'Icon Url',
-      value: 'A',
+      value: name?.data?.notification?.image,
     },
     {
       name: 'Data',
-      value: 'A',
+      value: name?.data?.data,
     },
   ];
 
@@ -86,17 +86,6 @@ function Example(props: any) {
       [name]: value,
     }));
   };
-
-  useEffect(() => {
-    if (!sessionStorage.popupModal) {
-      const timer = setTimeout(() => {
-        setIsShown(true);
-        sessionStorage.popupModal = 1;
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, []);
 
   return isShown ? (
     <div className='modal' style={dynammicModalClass()} id='channelModal'>
@@ -147,16 +136,14 @@ function Example(props: any) {
                   type='text'
                   id='default-input'
                   autoFocus
-                  className='block w-full rounded-lg border  border-gray-300 bg-gray-50  text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-popupbg dark:text-slate-50'
+                  className='block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50'
                   required
                   onChange={handleParam()}
                   name='requestName'
                 />
               </div>
               <div>
-                <p className='p-1 text-sm leading-relaxed text-gray-500 dark:text-gray-400'>
-                  Keep the name unique with a maximum of 40 characters
-                </p>
+                <p className='p-1 text-sm leading-relaxed text-gray-500 dark:text-gray-400'></p>
               </div>
 
               <figure className='dark:highlight-white/5 justify-satrt relative flex flex-col-reverse items-start rounded-lg bg-slate-50 p-2 dark:bg-popupkeyfield'>
@@ -164,12 +151,40 @@ function Example(props: any) {
                   {popupvalue.map((item, index) => {
                     const name = item.name;
                     const value = item.value;
+                    const length = (value && value.length) || 0;
+                    console.log('VALUE ---', value && value.length);
+                    if (!value) {
+                      return;
+                    }
                     return (
-                      <div key={index} className='flex-row p-1 text-left'>
-                        <code className='mx-3  bg-popupkeybg p-1 text-popupkey '>
+                      <div
+                        key={index}
+                        className={`flex ${
+                          length > 20 ? `flex-col` : `flex-row`
+                        } break-all p-1 text-left`}
+                      >
+                        <label className='w-28 bg-popupkeyDark p-1 text-white dark:bg-popupkeybg dark:text-popupkey '>
+                          {name}
+                        </label>
+                        {length > 20 ? (
+                          <textarea
+                            rows='2'
+                            cols='10'
+                            className='h-fit w-2/3 resize-none border border-popupkeyDark
+                            dark:border-popupkeybg'
+                            readOnly
+                          >
+                            {`${value.slice(0, 59)} ....`}
+                          </textarea>
+                        ) : (
+                          <p className='mx-2 w-96 overflow-hidden truncate'>
+                            {value}
+                          </p>
+                        )}
+                        {/* <code className='mx-3 bg-popupkeyDark p-1 text-white dark:bg-popupkeybg dark:text-popupkey '>
                           {name}
                         </code>
-                        {value}
+                        <p className='overflow-hidden text-ellipsis'>{value}</p> */}
                       </div>
                     );
                   })}

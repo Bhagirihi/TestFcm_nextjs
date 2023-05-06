@@ -45,8 +45,7 @@ function HomePage(props: any) {
     console.log("-------------------------------------")
     e.preventDefault();
 
-    const { fcmtoken, serverkey, body, title, data } = query;
-
+    const { fcmtoken, serverkey, body, title, data, image, redirect } = query;
     if (
       serverkey == undefined ||
       body == undefined ||
@@ -61,7 +60,9 @@ function HomePage(props: any) {
         body: body,
         content_available: true,
         priority: 'high',
-        Title: title,
+        title: title,
+        click_action: redirect,
+        image: image
       },
       data: data,
     };
@@ -72,10 +73,12 @@ function HomePage(props: any) {
     //window.localStorage.setItem('localItems', JSON.stringify(localItem));
     await setInfo(localItem);
     await setInfo2(true);
+
   };
   // Form Submit function
   const pushnotification = async (e: any) => {
     e.preventDefault();
+    console.log("Notification ------", query)
     await sendNotification(query)
   };
   return (
@@ -157,7 +160,7 @@ function HomePage(props: any) {
           className='m-4 text-center text-sm font-bold text-buttonh dark:text-buttonhd'
           onClick={onClick}
         >
-          {showResults ? 'Hide Optional' : 'Show Optional'}
+          {showResults ? `No Need Option` : `what's new?`}
         </div>
         {showResults && (
           <div>
@@ -183,15 +186,15 @@ function HomePage(props: any) {
                 htmlFor='default-input'
                 className='mb-2 block text-sm font-medium'
               >
-                Icon URL - (optional)
+                Image URL - (optional)
               </label>
               <input
                 type='url'
                 id='default-input'
-                placeholder='Icor url'
+                placeholder='Image url'
                 className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50'
                 onChange={handleParam()}
-                name='icon'
+                name='image'
               />
             </div>
 
@@ -221,7 +224,7 @@ function HomePage(props: any) {
             className='w-full rounded-lg  bg-button bg-opacity-30 bg-opacity-60 p-2 text-lg font-medium text-white dark:bg-buttond dark:text-textd '
             onClick={pushnotification}
           >
-            Push Notification
+            Send Notification
           </button>
         </div>
         <div className='md:vis hidden  w-4 md:flex'></div>

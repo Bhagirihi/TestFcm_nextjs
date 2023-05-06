@@ -12,14 +12,26 @@ function EmailPage(props: any) {
   const { name3, setInfo3, sendNotification } = props;
   const [list, setlist] = useState([]);
   const [nothing, setnothing] = useState(false);
-
+  console.log("list", list)
   useEffect(() => {
     setlist(name3);
   }, [props]);
 
   const onClickTest = async (data: any) => {
     console.log('onClickTest', data);
-    await sendNotification(data)
+    const FCMData = {
+      serverkey: data.Serverkey,
+      fcmtoken: data?.data?.to,
+      body: data.data.notification.body,
+      content_available: true,
+      priority: 'high',
+      title: data.data.notification.title,
+      click_action: data.data.notification.click_action,
+      image: data.data.notification.image,
+      data: data?.data?.data,
+    };
+    console.log("FCM in Email", FCMData)
+    await sendNotification(FCMData)
   };
 
   const onClickDel = async (idx: number) => {
@@ -40,9 +52,9 @@ function EmailPage(props: any) {
       {list.length == 0 || list == undefined ? (
         <>
           <Email className='h-5/6  w-7/12' width='60%' height='0' />
-          <h1 className='p-8 text-4xl font-bold leading-relaxed'>
-            Just a simple tool to test your firebase push notifications.
-          </h1>
+          <h2 className='p-8 text-4xl font-bold leading-relaxed'>
+            Simple interface to Test Mobile Push Notification
+          </h2>
         </>
       ) : (
         <div className='w-full rounded-lg  border bg-white p-2 shadow-md dark:border-gray-700 dark:bg-gray-800 sm:p-8'>
@@ -80,7 +92,7 @@ function EmailPage(props: any) {
                                 {d?.Notificationname || 'Notification Title'}
                               </p>
                               <p className='truncate text-sm text-gray-500 dark:text-gray-400'>
-                                {d?.data?.notification?.Title ||
+                                {d?.data?.notification?.title ||
                                   'Item saved name'}
                               </p>
                             </div>
