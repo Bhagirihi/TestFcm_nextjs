@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import Example from '../pages/_localItem';
-import { sendNotification, setInfo, setInfo2, setInfo3 } from '../../redux/actions/main';
+import {
+  sendNotification,
+  setInfo,
+  setInfo2,
+  setInfo3,
+} from '../../redux/actions/main';
 
 import Delete from '~/svg/Delete.svg';
 import Email from '~/svg/Email.svg';
@@ -12,7 +17,7 @@ function EmailPage(props: any) {
   const { name3, setInfo3, sendNotification } = props;
   const [list, setlist] = useState([]);
   const [nothing, setnothing] = useState(false);
-  console.log("list", list)
+  console.log('list', list);
   useEffect(() => {
     setlist(name3);
   }, [props]);
@@ -30,8 +35,8 @@ function EmailPage(props: any) {
       image: data.data.notification.image,
       data: data?.data?.data,
     };
-    console.log("FCM in Email", FCMData)
-    await sendNotification(FCMData)
+    console.log('FCM in Email', FCMData);
+    await sendNotification(FCMData);
   };
 
   const onClickDel = async (idx: number) => {
@@ -130,16 +135,12 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-
 const mapDispatchToProps = (dispatch: any) => {
   return {
     setInfo: (data: any) => dispatch(setInfo(data)),
     setInfo2: (data: any) => dispatch(setInfo2(data)),
     setInfo3: (data: any) => dispatch(setInfo3(data)),
-    sendNotification: (data: any) =>
-      dispatch(
-        sendNotification(data)
-      )
+    sendNotification: (data: any) => dispatch(sendNotification(data)),
   };
 };
 

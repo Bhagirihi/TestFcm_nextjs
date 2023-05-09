@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
+import addData from '@/components/addData';
 import { Error } from '@/components/toast';
 
 import { setInfo2, setInfo3 } from '../../redux/actions/main';
 
 function Example(props: any) {
-  const { setInfo2, setInfo3, name2, name, name3 } = props;
+  const { setInfo2, setInfo3, name2, name, name3, user } = props;
   const [isShown, setIsShown] = useState(false);
   const [savetoname3, Setsavetoname3] = useState(false);
   const [request, SetRequest] = useState({});
@@ -39,6 +40,15 @@ function Example(props: any) {
     if (!request.requestName) {
       return Error('Please giveus some Input.');
     }
+    console.log('request', name, request.requestName, user[0].email);
+
+    const { result, error } = await addData(
+      user[0].email,
+      'tokens',
+      request.requestName,
+      name
+    );
+    console.log(result, error, '0900');
     Setsavetoname3(true);
     await setInfo2(false);
     await setIsShown(false);
@@ -221,6 +231,7 @@ const mapStateToProps = (state: any) => {
     name: state.main.name,
     name3: state.main.name3,
     name2: state.main.name2,
+    user: state.main.user,
   };
 };
 

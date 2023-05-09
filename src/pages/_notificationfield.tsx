@@ -10,8 +10,7 @@ function HomePage(props: any) {
   const [showResults, setShowResults] = useState<boolean>(true);
   const [disable, setDisable] = useState<boolean>(true);
   const [deviceType, setDeviceType] = useState<string>('Desktop');
-  const { setInfo, setInfo2, sendNotification } = props;
-
+  const { setInfo, setInfo2, sendNotification, user } = props;
 
   const onClick = () => setShowResults(!showResults);
   useEffect(() => {
@@ -30,7 +29,7 @@ function HomePage(props: any) {
   // Update inputs value
   const handleParam = () => (e: any) => {
     const name = e.target.name;
-    const value = e.target.value;
+    const value = e.target.value || '';
     setQuery((prevState) => ({
       ...prevState,
       [name]: value,
@@ -42,7 +41,7 @@ function HomePage(props: any) {
 
   //Local save
   const savelocal = async (e) => {
-    console.log("-------------------------------------")
+    console.log('-------------------------------------');
     e.preventDefault();
 
     const { fcmtoken, serverkey, body, title, data, image, redirect } = query;
@@ -61,25 +60,25 @@ function HomePage(props: any) {
         content_available: true,
         priority: 'high',
         title: title,
-        click_action: redirect,
-        image: image
+        click_action: redirect == undefined ? '' : redirect,
+        image: image == undefined ? '' : image,
       },
-      data: data,
+      data: data == undefined ? [] : data,
     };
     const localItem = {
       data: FCMData,
       Serverkey: serverkey,
     };
     //window.localStorage.setItem('localItems', JSON.stringify(localItem));
+
     await setInfo(localItem);
     await setInfo2(true);
-
   };
   // Form Submit function
   const pushnotification = async (e: any) => {
     e.preventDefault();
-    console.log("Notification ------", query)
-    await sendNotification(query)
+    console.log('Notification ------', query);
+    await sendNotification(query);
   };
   return (
     <form>
@@ -228,10 +227,10 @@ function HomePage(props: any) {
           </button>
         </div>
         <div className='md:vis hidden  w-4 md:flex'></div>
-        <div className='hidden w-1/3  rounded-lg md:flex ' >
+        <div className='hidden w-1/3  rounded-lg md:flex '>
           <button
             disabled={disable}
-            className="w-full  rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd"
+            className='w-full  rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd'
             onClick={savelocal}
           >
             Save Locally
@@ -242,17 +241,18 @@ function HomePage(props: any) {
   );
 }
 const mapStateToProps = (state: any) => {
-  return { name: state.main.name, name2: state.main.name2 };
+  return {
+    name: state.main.name,
+    name2: state.main.name2,
+    user: state.main.user,
+  };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     setInfo: (data: any) => dispatch(setInfo(data)),
     setInfo2: (data: any) => dispatch(setInfo2(data)),
-    sendNotification: (data: any) =>
-      dispatch(
-        sendNotification(data)
-      )
+    sendNotification: (data: any) => dispatch(sendNotification(data)),
   };
 };
 

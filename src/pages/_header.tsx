@@ -1,9 +1,11 @@
 import { useTheme } from 'next-themes';
+import { connect } from 'react-redux';
+
+import Firebaseauth from '@/components/Firebase';
 
 import DarkMoon from '~/svg/DarkMoon.svg';
 import Firebase from '~/svg/Firebase.svg';
-import Google from '~/svg/Google.svg';
-export default function Header() {
+function Header(props: any) {
   const { theme, setTheme } = useTheme();
 
   const DarkMode = () => {
@@ -19,12 +21,13 @@ export default function Header() {
 
   const google = () => {
     return (
-      <button
-        className='w-27 mx-2 rounded-md border p-3 text-right dark:border-4 dark:border-sunborderd dark:hover:bg-hoverd'
-        onClick={() => alert('Google Signin')}
-      >
-        <Google className='flex h-5 w-5 items-center text-center' />
-      </button>
+      // <button
+      //   className='w-27 mx-2 rounded-md border p-3 text-right dark:border-4 dark:border-sunborderd dark:hover:bg-hoverd'
+      //   onClick={signIn}
+      // >
+      //   <Google className='flex h-5 w-5 items-center text-center' />
+      // </button>
+      <Firebaseauth />
     );
   };
   return (
@@ -42,3 +45,11 @@ export default function Header() {
     </div>
   );
 }
+const mapStateToProps = (state: any) => {
+  console.log('SATE REDUX', state);
+  return {
+    user: state.main.user,
+  };
+};
+
+export default connect(mapStateToProps, [])(Header);

@@ -16,21 +16,18 @@ import { wrapper } from '../../redux/store';
  */
 
 function MyApp({ Component, pageProps }: AppProps) {
-
   return (
     <>
-      {
-        process.env.NODE_ENV !== 'development' &&
-
-        <Script id='BLOBK_INSPECT' >
+      {process.env.NODE_ENV !== 'development' && (
+        <Script id='BLOBK_INSPECT'>
           {`
         // Disable right-click
         document.addEventListener('contextmenu', (e) => e.preventDefault());
-        
+
         function ctrlShiftKey(e, keyCode) {
           return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
         }
-        
+
         document.onkeydown = (e) => {
           // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
           if (
@@ -44,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         };
         `}
         </Script>
-      }
+      )}
       <Script
         id='GOOGLE_ANALYTICS_ID'
         strategy='lazyOnload'
@@ -61,7 +58,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             });
         `}
       </Script>
-      <Script type="module" id="FIREBASE_SETUP">{`
+      {/* <Script type="module" id="FIREBASE_SETUP">{`
         // Import the functions you need from the SDKs you need
         import {initializeApp} from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
         import {getAnalytics} from "https://www.gstatic.com/firebasejs/9.9.2/firebase-analytics.js";
@@ -83,7 +80,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         `}
-      </Script>
+      </Script> */}
       <Seo />
       <ThemeProvider attribute='class'>
         <Component {...pageProps} />
