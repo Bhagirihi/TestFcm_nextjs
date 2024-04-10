@@ -40,10 +40,10 @@ function Example(props: any) {
     if (!request.requestName) {
       return Error('Please giveus some Input.');
     }
-    console.log('request', name, request.requestName, user[0].email);
+    console.log('request', name, request.requestName, user[0]?.email);
 
     const { result, error } = await addData(
-      user[0].email,
+      user[0]?.email,
       'tokens',
       request.requestName,
       name

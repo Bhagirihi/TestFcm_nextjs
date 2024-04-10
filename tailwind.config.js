@@ -41,6 +41,7 @@ module.exports = {
         popupbg: '#2D3848',
         popupkeybg: '#faf08929',
         popupkey: '#FAF089',
+        popupkeyDark:'#aaa039',
         popupkeyfield: '#4A5463',
       },
       keyframes: {

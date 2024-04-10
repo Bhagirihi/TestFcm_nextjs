@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Script from "next/script";
+import Script from 'next/script';
 
 // !STARTERCONF Change these default meta
 const defaultMeta = {
   title: 'Push Notification Tester |  Test Mobile Push Notification',
-  siteName: 'Push Notification Tester |  Test Mobile Push Notification',
+  siteName: 'Push Notification Tester',
   description:
     'Online Testing Site for Firebase Cloud Messaging (FCM) push notification from your Mobile Applications.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
@@ -47,8 +47,9 @@ export default function Seo(props: SeoProps) {
 
   return (
     <>
-      <Script id="schema" type="application/ld+json">{`
-      
+      <Script id='schema' type='application/ld+json'>
+        {`
+
       {
         "@context": "https://schema.org/",
       "@type": "Article",
@@ -94,18 +95,18 @@ export default function Seo(props: SeoProps) {
         <meta name='description' content={meta.description} />
         <meta
           name='keywords'
-          content='Test FCM, Online FCM testing tool, Firebase Cloud Messaging, Try Firebase Cloud Messaging, 
-        Test Push Notifiaction Online, FCM messages test notification, CM, Firebase iOS, FCM Tester, FCM iOS, 
-        Firebase Android, apns production ios, ios push notifications, push notifications for iOS and android, 
-        apps with push notifications, Apple push notification service for iPhone and iPad, push messaging, 
-        google cloud messaging ios, gcm push notification and android push test, push testers, online testing apns, 
+          content='Test FCM, Online FCM testing tool, Firebase Cloud Messaging, Try Firebase Cloud Messaging,
+        Test Push Notifiaction Online, FCM messages test notification, CM, Firebase iOS, FCM Tester, FCM iOS,
+        Firebase Android, apns production ios, ios push notifications, push notifications for iOS and android,
+        apps with push notifications, Apple push notification service for iPhone and iPad, push messaging,
+        google cloud messaging ios, gcm push notification and android push test, push testers, online testing apns,
         test gcm online, send gcm notification online, gcm message, GCM, APNS'
           className='next-head'
         />
         <meta property='og:url' content={`${meta.url}${router.asPath}`} />
         <link rel='canonical' href={`${meta.url}${router.asPath}`} />
         {/* Open Graph */}
-        <link rel="manifest" href="/manifest.json" />
+        <link rel='manifest' href='/manifest.json' />
         <meta property='og:type' content={meta.type} />
         <meta property='og:site_name' content={meta.siteName} />
         <meta property='og:description' content={meta.description} />
@@ -113,7 +114,7 @@ export default function Seo(props: SeoProps) {
         <meta name='image' property='og:image' content={meta.image} />
         {/* Twitter */}
         <meta name='twitter:card' content={meta.image} />
-        <meta name='twitter:site' content="https://www.testfcm.in/" />
+        <meta name='twitter:site' content='https://www.testfcm.in/' />
         <meta name='twitter:title' content={meta.title} />
         <meta name='twitter:description' content={meta.description} />
         <meta name='twitter:image' content={meta.image} />

@@ -58,29 +58,12 @@ function MyApp({ Component, pageProps }: AppProps) {
             });
         `}
       </Script>
-      {/* <Script type="module" id="FIREBASE_SETUP">{`
-        // Import the functions you need from the SDKs you need
-        import {initializeApp} from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
-        import {getAnalytics} from "https://www.gstatic.com/firebasejs/9.9.2/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+      <Script
+        async
+        src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363029561384244'
+        crossorigin='anonymous'
+      ></Script>
 
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-        apiKey: "AIzaSyD_FrBqNVJuC8zqV5Jr1hgEFf0K4Tda0CQ",
-        authDomain: "dhruvdave-bdff2.firebaseapp.com",
-        projectId: "dhruvdave-bdff2",
-        storageBucket: "dhruvdave-bdff2.appspot.com",
-        messagingSenderId: "856165219006",
-        appId: "1:856165219006:web:d1e891634220a0966e3cef",
-        measurementId: "G-J69MGN0CSP"
-        };
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        `}
-      </Script> */}
       <Seo />
       <ThemeProvider attribute='class'>
         <Component {...pageProps} />

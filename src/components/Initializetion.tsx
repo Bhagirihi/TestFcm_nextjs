@@ -42,6 +42,9 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
 const firebaseDB = getFirestore(firebaseApp);
+//const firebseAccess = getAccessToken();
+
+// console.log("firebseAccess",firebseAccess)
 
 const firebaseProvider = new firebase.auth.GoogleAuthProvider();
 firebaseProvider.setCustomParameters({ prompt: 'select_account' });
