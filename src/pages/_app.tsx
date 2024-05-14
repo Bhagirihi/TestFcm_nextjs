@@ -9,6 +9,7 @@ import '@/styles/colors.css';
 import Seo from '@/components/Seo';
 
 import { wrapper } from '../../redux/store';
+import AdSense from '@/components/AdSense';
 
 /**
  * !STARTERCONF info
@@ -58,11 +59,13 @@ function MyApp({ Component, pageProps }: AppProps) {
             });
         `}
       </Script>
-      <Script
+
+      <AdSense pId='ca-pub-5363029561384244' />
+      {/* <Script
         async
-        src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363029561384244'
-        crossorigin='anonymous'
-      ></Script>
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363029561384244`}
+        crossOrigin='anonymous'
+      ></Script> */}
 
       <Seo />
       <ThemeProvider attribute='class'>

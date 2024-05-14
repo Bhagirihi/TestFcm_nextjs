@@ -1,7 +1,18 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+});
+
+module.exports = withPWA({
   eslint: {
     dirs: ['src'],
+  },
+  pwa: {
+    dest: 'public',
+    register: true,
+    skipWaiting: true,
   },
 
   reactStrictMode: true,
@@ -27,6 +38,7 @@ module.exports = {
           },
         },
       ],
+
     });
     return config;
   },
@@ -43,4 +55,4 @@ module.exports = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-};
+});

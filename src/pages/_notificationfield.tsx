@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Error } from '@/components/toast';
 
 import { sendNotification, setInfo, setInfo2 } from '../../redux/actions/main';
+import AdBanner from '@/components/AdBanner';
+import { isuserLogin, userLogin } from '@/lib/helper/firebaseHelper';
 
 function HomePage(props: any) {
   const [query, setQuery] = useState({});
@@ -13,6 +15,7 @@ function HomePage(props: any) {
   const { setInfo, setInfo2, sendNotification, user } = props;
 
   const onClick = () => setShowResults(!showResults);
+
   useEffect(() => {
     if (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone/i.test(
@@ -80,6 +83,13 @@ function HomePage(props: any) {
     console.log('Notification ------', query);
     await sendNotification(query);
   };
+
+  const login = async () => {
+    const Login = await isuserLogin();
+    console.log('LOGIN ---', Login);
+    return Login;
+  };
+
   return (
     <form>
       <div className='text-start'>
@@ -231,12 +241,22 @@ function HomePage(props: any) {
           <button
             disabled={disable}
             className='w-full  rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd'
-            onClick={savelocal}
+            onClick={login() ? savelocal : userLogin}
           >
-            Save Locally
+            {login() ? 'Save Locally' : 'LogIn Here'}
           </button>
         </div>
       </div>
+      {/* {!showResults && (
+        <div className='rounde flex-initiald w-full bg-gray-100'>
+          <AdBanner
+            dataClientID='ca-pub-5363029561384244'
+            dataAdFormat='auto'
+            dataFullWidthResponsive={true}
+            dataAdSlot='1580639045'
+          />
+        </div>
+      )} */}
     </form>
   );
 }

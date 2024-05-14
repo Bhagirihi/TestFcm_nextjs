@@ -20,15 +20,7 @@ function Header(props: any) {
   };
 
   const google = () => {
-    return (
-      // <button
-      //   className='w-27 mx-2 rounded-md border p-3 text-right dark:border-4 dark:border-sunborderd dark:hover:bg-hoverd'
-      //   onClick={signIn}
-      // >
-      //   <Google className='flex h-5 w-5 items-center text-center' />
-      // </button>
-      <Firebaseauth />
-    );
+    return <Firebaseauth />;
   };
   return (
     <div className='flex  w-full items-center justify-center'>

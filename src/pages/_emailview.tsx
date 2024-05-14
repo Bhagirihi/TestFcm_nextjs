@@ -12,18 +12,50 @@ import {
 import Delete from '~/svg/Delete.svg';
 import Email from '~/svg/Email.svg';
 import Testnotification from '~/svg/Testnotification.svg';
+import AdBanner from '@/components/AdBanner';
+import {
+  addDoc,
+  arrayRemove,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+} from 'firebase/firestore';
+import { firebaseDB } from '@/components/Initializetion';
+import { getData, isuserLogin } from '@/lib/helper/firebaseHelper';
 
 function EmailPage(props: any) {
-  const { name3, setInfo3, sendNotification } = props;
+  const { name3, setInfo3, sendNotification, user } = props;
   const [list, setlist] = useState([]);
   const [nothing, setnothing] = useState(false);
-  console.log('list', list);
+
   useEffect(() => {
-    setlist(name3);
-  }, [props]);
+    async function fetchData() {
+      await getNotifications();
+    }
+    fetchData();
+  }, []);
+
+  const getNotifications = async () => {
+    const Login = await isuserLogin();
+    if (!Login) {
+      return setlist([]);
+    }
+    const docRef = doc(firebaseDB, 'users', user[0]?.uid);
+    var notification = [];
+    getData(docRef).then(async (data) => {
+      console.log('Data', data);
+      notification = data?.notifications;
+      return await setlist(notification);
+    });
+  };
 
   const onClickTest = async (data: any) => {
-    console.log('onClickTest', data);
+    console.log('onClickTest', data.value);
+    data = data.value;
     const FCMData = {
       serverkey: data.Serverkey,
       fcmtoken: data?.data?.to,
@@ -39,22 +71,25 @@ function EmailPage(props: any) {
     await sendNotification(FCMData);
   };
 
-  const onClickDel = async (idx: number) => {
-    setlist(removeItemOnce(list, idx));
+  const onClickDel = async (data: any) => {
+    const index = list.findIndex((i) => i.title == data.title);
+    removeItemOnce(data, index);
   };
 
-  function removeItemOnce(arr: any, index: number) {
-    if (index > -1) {
-      arr.splice(index, 1);
-    }
+  async function removeItemOnce(arr: any, index: number) {
+    var docRef = doc(firebaseDB, 'users', user[0]?.uid);
+    // await deleteDoc(docRef, 'notifications', index);
+    await updateDoc(docRef, {
+      notifications: arrayRemove(arr), // removes "1" from the array
+    });
     setInfo3(arr);
     setnothing(!nothing);
-    return arr;
+    return getNotifications();
   }
-
+  console.log('list ---------', list == undefined && getNotifications());
   return (
     <div className='flex flex-col items-center justify-center'>
-      {list.length == 0 || list == undefined ? (
+      {list == undefined || list.length == 0 ? (
         <>
           <Email className='h-5/6  w-7/12' width='60%' height='0' />
           <h2 className='p-8 text-4xl font-bold leading-relaxed'>
@@ -65,7 +100,7 @@ function EmailPage(props: any) {
         <div className='w-full rounded-lg  border bg-white p-2 shadow-md dark:border-gray-700 dark:bg-gray-800 sm:p-8'>
           <div className='mb-4 flex items-center justify-between'>
             <h3 className='font-bold leading-none text-gray-900 dark:text-white'>
-              Saved Requests
+              Saved Notification(s)
             </h3>
             <a
               href='#'
@@ -78,6 +113,7 @@ function EmailPage(props: any) {
           <div>
             {list &&
               list.map(function (d, idx) {
+                console.log('D', d);
                 if (d) {
                   return (
                     <div className='flow-root'>
@@ -89,20 +125,20 @@ function EmailPage(props: any) {
                           <div className='flex items-center space-x-4'>
                             <div className='flex h-11  w-11 flex-shrink-0 items-center justify-center rounded-full border-2 border-slate-400 dark:bg-slate-400'>
                               <h3 className='bold h-8 w-8 rounded-full '>
-                                {d?.Notificationname.charAt(0)}
+                                {d?.title.charAt(0)}
                               </h3>
                             </div>
                             <div className='flex-1 '>
                               <p className='text-md truncate font-medium text-gray-900 dark:text-white'>
-                                {d?.Notificationname || 'Notification Title'}
+                                {d?.title || 'Notification Title'}
                               </p>
                               <p className='truncate text-sm text-gray-500 dark:text-gray-400'>
-                                {d?.data?.notification?.title ||
+                                {d?.value?.data?.notification?.title ||
                                   'Item saved name'}
                               </p>
                             </div>
                             <div
-                              onClick={() => onClickDel(idx)}
+                              onClick={() => onClickDel(d)}
                               className='inline-flex items-center text-base font-semibold text-gray-900 dark:text-white'
                             >
                               <Delete className='flex h-8 w-8 items-center fill-current text-center' />
@@ -129,6 +165,7 @@ function EmailPage(props: any) {
 }
 const mapStateToProps = (state: any) => {
   return {
+    user: state.main.user,
     name: state.main.name,
     name2: state.main.name2,
     name3: state.main.name3,

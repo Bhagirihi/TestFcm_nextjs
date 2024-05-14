@@ -95,13 +95,12 @@ export default function Seo(props: SeoProps) {
         <meta name='description' content={meta.description} />
         <meta
           name='keywords'
-          content='Test FCM, Online FCM testing tool, Firebase Cloud Messaging, Try Firebase Cloud Messaging,
-        Test Push Notifiaction Online, FCM messages test notification, CM, Firebase iOS, FCM Tester, FCM iOS,
-        Firebase Android, apns production ios, ios push notifications, push notifications for iOS and android,
-        apps with push notifications, Apple push notification service for iPhone and iPad, push messaging,
-        google cloud messaging ios, gcm push notification and android push test, push testers, online testing apns,
-        test gcm online, send gcm notification online, gcm message, GCM, APNS'
-          className='next-head'
+          content='Test FCM, Test Push Notifications,Firebase notification Test,
+           Online FCM testing tool, Firebase Cloud Messaging, Firebase Cloud Messaging,
+           Try Firebase Cloud Messaging, Test Push Notification Online,
+           FCM messages test notification, Test Push Notifiaction Online,
+           FCM messages test notification,ios push notifications,
+           push notifications for iOS and android, online notification tester, online FCM tester, online push notification test, firebase push notifications,'
         />
         <meta property='og:url' content={`${meta.url}${router.asPath}`} />
         <link rel='canonical' href={`${meta.url}${router.asPath}`} />

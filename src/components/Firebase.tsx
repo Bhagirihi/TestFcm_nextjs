@@ -6,9 +6,15 @@ import { connect } from 'react-redux';
 import { saveUser } from 'redux/actions/main';
 
 import addData from '@/components/addData';
-import { firebaseAuth, firebaseProvider } from '@/components/Initializetion';
+import {
+  firebaseAuth,
+  firebaseDB,
+  firebaseProvider,
+} from '@/components/Initializetion';
 
 import Google from '~/svg/Google.svg';
+import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { authenticationCheck, isuserLogin } from '@/lib/helper/firebaseHelper';
 
 function Firebaseauth(props: any) {
   const { saveUser, user } = props;
@@ -31,23 +37,27 @@ function Firebaseauth(props: any) {
       .catch((e) => console.log('Error', e));
 
   useEffect(() => {
+    console.log(isuserLogin(), 'check user Login');
     const data = onAuthStateChanged(firebaseAuth, async (user) => {
       const Authuser = [user?.providerData[0]];
-      const firebaseUser = {
-        email: user?.providerData[0].email,
-        uid: user?.providerData[0].uid,
-      };
-      console.log('user -----', user);
+
       if (user != null) {
         saveUser(Authuser);
-        const { result, error } = await addData(
-          firebaseUser.email,
-          'data',
-          firebaseUser
+        var rootRef = doc(firebaseDB, 'users', user?.providerData[0].uid);
+
+        await setDoc(
+          rootRef,
+          {
+            email: user?.providerData[0].email,
+            creationTime: user?.metadata?.creationTime,
+            lastLogin: user?.metadata?.lastSignInTime,
+            // notifications: [],
+          },
+          { merge: true }
         );
 
         setuserCondition(true);
-        console.log(result, error, 'STORE IN FIREBASE');
+        //   console.log(result, error, 'STORE IN FIREBASE');
       } else {
         console.log('not length found');
       }

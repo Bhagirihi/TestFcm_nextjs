@@ -5,7 +5,10 @@ import Seo from '@/components/Seo';
 
 import Emailpage from '@/pages/_emailview';
 import Header from '@/pages/_header';
+
 import Notification from '@/pages/_notificationfield';
+import Blogs from '@/pages/_blogs';
+import AdBanner from '@/components/AdBanner';
 
 export default function HomePage() {
   return (
@@ -28,6 +31,8 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+
+          {/* <Blogs /> */}
         </section>
       </main>
       <ToastContainer />

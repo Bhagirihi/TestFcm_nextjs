@@ -5,6 +5,17 @@ import addData from '@/components/addData';
 import { Error } from '@/components/toast';
 
 import { setInfo2, setInfo3 } from '../../redux/actions/main';
+import {
+  FieldValue,
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from 'firebase/firestore';
+import { firebaseDB } from '@/components/Initializetion';
 
 function Example(props: any) {
   const { setInfo2, setInfo3, name2, name, name3, user } = props;
@@ -14,23 +25,9 @@ function Example(props: any) {
 
   useEffect(() => {
     setIsShown(name2);
-    console.log('name 2', name2);
+
+    console.log('name 2 909090', name2);
   }, [props]);
-
-  useEffect(() => {
-    const name3save = [
-      ...name3,
-      {
-        data: name?.data,
-        Serverkey: name?.Serverkey,
-        Notificationname: request?.requestName,
-      },
-    ];
-
-    if (savetoname3) {
-      setInfo3(name3save);
-    }
-  }, [savetoname3]);
 
   const closeModal = () => {
     setIsShown(false);
@@ -40,19 +37,17 @@ function Example(props: any) {
     if (!request.requestName) {
       return Error('Please giveus some Input.');
     }
-    console.log('request', name, request.requestName, user[0]?.email);
+    var docRef = doc(firebaseDB, 'users', user[0]?.uid);
 
-    const { result, error } = await addData(
-      user[0]?.email,
-      'tokens',
-      request.requestName,
-      name
-    );
-    console.log(result, error, '0900');
-    Setsavetoname3(true);
+    await updateDoc(
+      docRef,
+      {
+        notifications: arrayUnion({ title: request.requestName, value: name }),
+      },
+      { merge: true }
+    ).then((data) => console.log('saved DATA', data));
     await setInfo2(false);
     await setIsShown(false);
-    Setsavetoname3(false);
   };
 
   const popupvalue = [
@@ -162,7 +157,7 @@ function Example(props: any) {
                     const name = item.name;
                     const value = item.value;
                     const length = (value && value.length) || 0;
-                    console.log('VALUE ---', value && value.length);
+
                     if (!value) {
                       return;
                     }
@@ -229,7 +224,7 @@ function Example(props: any) {
 const mapStateToProps = (state: any) => {
   return {
     name: state.main.name,
-    name3: state.main.name3,
+    name3: state?.main?.name3 || [],
     name2: state.main.name2,
     user: state.main.user,
   };
