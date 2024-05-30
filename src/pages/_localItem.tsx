@@ -1,7 +1,11 @@
+import { getAuth } from 'firebase/auth';
+import { arrayUnion, doc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import addData from '@/components/addData';
+import { isEmpty, updateData } from '@/lib/helper/firebaseHelper';
+
+import { firebaseDB } from '@/components/Initializetion';
 import { Error } from '@/components/toast';
 
 import { setInfo2, setInfo3 } from '../../redux/actions/main';
@@ -14,16 +18,19 @@ function Example(props: any) {
 
   useEffect(() => {
     setIsShown(name2);
-    console.log('name 2', name2);
+    console.log('name 2', name2, name);
   }, [props]);
 
   useEffect(() => {
     const name3save = [
       ...name3,
       {
+        http: name?.http,
+        projectID: name?.projectID,
+        accessToken: name?.accessToken,
         data: name?.data,
         Serverkey: name?.Serverkey,
-        Notificationname: request?.requestName,
+        title: request?.requestName,
       },
     ];
 
@@ -40,16 +47,19 @@ function Example(props: any) {
     if (!request.requestName) {
       return Error('Please giveus some Input.');
     }
-    console.log('request', name, request.requestName, user[0]?.email);
 
-    const { result, error } = await addData(
-      user[0]?.email,
-      'tokens',
-      request.requestName,
-      name
-    );
-    console.log(result, error, '0900');
     Setsavetoname3(true);
+    const isuser = await getAuth().currentUser;
+    const isData = await isEmpty(isuser);
+
+    console.log('request', name, isuser, isData, request.requestName, user[0]?.email);
+    if (!isData) {
+      const rootRef = doc(firebaseDB, 'users', isuser?.providerData[0].uid);
+
+      updateData(rootRef, {
+        notifications: arrayUnion({ title: request.requestName, value: name }),
+      });
+    }
     await setInfo2(false);
     await setIsShown(false);
     Setsavetoname3(false);
@@ -108,10 +118,9 @@ function Example(props: any) {
         <div className='relative h-full w-full max-w-md p-4 md:h-auto'>
           <div className='relative rounded-lg bg-white shadow dark:bg-popupbg'>
             <div className='flex items-center justify-between rounded-t p-5  dark:border-gray-600'>
-              <h3 className='text-xl font-medium text-gray-900 dark:text-white'>
-                Save Request
-              </h3>
+              <h3 className='text-xl font-medium text-gray-900 dark:text-white'>Save Request</h3>
               <button
+                aria-label="modal_close"
                 type='button'
                 onClick={closeModal}
                 className='ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white'
@@ -136,10 +145,7 @@ function Example(props: any) {
 
             <div className='space-y-1 p-3'>
               <div>
-                <label
-                  htmlFor='default-input'
-                  className='mb-2 block flex items-start text-sm font-medium'
-                >
+                <label htmlFor='default-input' className='mb-2 block flex items-start text-sm font-medium'>
                   Request Name
                 </label>
                 <input
@@ -167,30 +173,16 @@ function Example(props: any) {
                       return;
                     }
                     return (
-                      <div
-                        key={index}
-                        className={`flex ${
-                          length > 20 ? `flex-col` : `flex-row`
-                        } break-all p-1 text-left`}
-                      >
-                        <label className='w-28 bg-popupkeyDark p-1 text-white dark:bg-popupkeybg dark:text-popupkey '>
+                      <div key={index} className={`flex ${`flex-row`} break-all p-1 text-left`}>
+                        <article className='text-pretty ...'>
+                          <h4 className='bg-popupkeyDark p-1 dark:bg-popupkeybg '>{name}</h4>
+                          <p className='overflow-hidden text-ellipsis line-clamp-2 hover:line-clamp-none'>{value}</p>
+                        </article>
+
+                        {/* <label className='w-28 bg-popupkeyDark p-1 text-white dark:bg-popupkeybg dark:text-popupkey '>
                           {name}
-                        </label>
-                        {length > 20 ? (
-                          <textarea
-                            rows='2'
-                            cols='10'
-                            className='h-fit w-2/3 resize-none border border-popupkeyDark
-                            dark:border-popupkeybg'
-                            readOnly
-                          >
-                            {`${value.slice(0, 59)} ....`}
-                          </textarea>
-                        ) : (
-                          <p className='mx-2 w-96 overflow-hidden truncate'>
-                            {value}
-                          </p>
-                        )}
+                        </label> */}
+
                         {/* <code className='mx-3 bg-popupkeyDark p-1 text-white dark:bg-popupkeybg dark:text-popupkey '>
                           {name}
                         </code>
@@ -203,20 +195,22 @@ function Example(props: any) {
             </div>
             <div className='flex items-center space-x-2 rounded-b border-gray-200  p-6 dark:border-gray-600'>
               <button
+                aria-label="notification_save_local"
                 onClick={accept}
                 data-modal-toggle='small-modal'
                 type='button'
                 className='rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
               >
-                I accept
+                Save
               </button>
               <button
+                aria-label="modla_close"
                 data-modal-toggle='small-modal'
                 onClick={closeModal}
                 type='button'
                 className='rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600'
               >
-                Decline
+                Cancel
               </button>
             </div>
           </div>

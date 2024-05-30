@@ -42,6 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         `}
         </Script>
       )}
+
       <Script
         id='GOOGLE_ANALYTICS_ID'
         strategy='lazyOnload'
@@ -58,6 +59,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             });
         `}
       </Script>
+
       <Script
         async
         src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363029561384244'

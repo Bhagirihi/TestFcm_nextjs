@@ -4,10 +4,10 @@ import Script from 'next/script';
 
 // !STARTERCONF Change these default meta
 const defaultMeta = {
-  title: 'Push Notification Tester |  Test Mobile Push Notification',
+  title: 'TestFCM | FCM HTTPV1 | Test Mobile Push Notification',
   siteName: 'Push Notification Tester',
   description:
-    'Online Testing Site for Firebase Cloud Messaging (FCM) push notification from your Mobile Applications.',
+    'TestFCM is a Online Testing Site for Firebase Cloud Messaging (FCM) push notification from your Mobile Applications.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
   url: 'https://www.testfcm.in',
   type: 'website',
@@ -31,9 +31,7 @@ export default function Seo(props: SeoProps) {
     ...defaultMeta,
     ...props,
   };
-  meta['title'] = props.templateTitle
-    ? `${props.templateTitle} | ${meta.siteName}`
-    : meta.title;
+  meta['title'] = props.templateTitle ? `${props.templateTitle} | ${meta.siteName}` : meta.title;
 
   // Use siteName if there is templateTitle
   // but show full title if there is none
@@ -87,21 +85,19 @@ export default function Seo(props: SeoProps) {
       <Head>
         <title>{meta.title}</title>
 
-        <meta
-          name='google-site-verification'
-          content='W6UjtF3maZMRBigZE1n56Z8nsQXPaSbDvdnL-a8sLC8'
-        />
+        <meta name='google-site-verification' content='W6UjtF3maZMRBigZE1n56Z8nsQXPaSbDvdnL-a8sLC8' />
         <meta name='robots' content={meta.robots} />
         <meta name='description' content={meta.description} />
         <meta
           name='keywords'
-          content='Test FCM, Online FCM testing tool, Firebase Cloud Messaging, Try Firebase Cloud Messaging,
-        Test Push Notifiaction Online, FCM messages test notification, CM, Firebase iOS, FCM Tester, FCM iOS,
-        Firebase Android, apns production ios, ios push notifications, push notifications for iOS and android,
-        apps with push notifications, Apple push notification service for iPhone and iPad, push messaging,
-        google cloud messaging ios, gcm push notification and android push test, push testers, online testing apns,
-        test gcm online, send gcm notification online, gcm message, GCM, APNS'
-          className='next-head'
+          content='TestFCM, Test FCM,TestNotification, Test Push Notifications,Firebase notification Test,
+           Online FCM testing tool, Firebase Cloud Messaging, Firebase Cloud Messaging,
+           Try Firebase Cloud Messaging, Test Push Notification Online,
+           FCM messages test notification, Test Push Notifiaction Online,
+           FCM messages test notification,ios push notifications,
+           push notifications for iOS and android, online notification tester,
+           online FCM tester, online push notification test, firebase push notifications,
+           Testing FCM Push Notification (HTTP v1),FCM HTTP, FCMLegacy, FCMHTTP'
         />
         <meta property='og:url' content={`${meta.url}${router.asPath}`} />
         <link rel='canonical' href={`${meta.url}${router.asPath}`} />
@@ -121,16 +117,8 @@ export default function Seo(props: SeoProps) {
         {meta.date && (
           <>
             <meta property='article:published_time' content={meta.date} />
-            <meta
-              name='publish_date'
-              property='og:publish_date'
-              content={meta.date}
-            />
-            <meta
-              name='author'
-              property='article:author'
-              content='Theodorus Clarence'
-            />
+            <meta name='publish_date' property='og:publish_date' content={meta.date} />
+            <meta name='author' property='article:author' content='Theodorus Clarence' />
           </>
         )}
 
@@ -139,10 +127,7 @@ export default function Seo(props: SeoProps) {
           <link key={linkProps.href} {...linkProps} />
         ))}
         <meta name='msapplication-TileColor' content='#ffffff' />
-        <meta
-          name='msapplication-TileImage'
-          content='https://www.testfcm.in/favicon/ms-icon-144x144.png'
-        />
+        <meta name='msapplication-TileImage' content='https://www.testfcm.in/favicon/ms-icon-144x144.png' />
         <meta name='theme-color' content='#ffffff' />
       </Head>
     </>
@@ -207,7 +192,7 @@ const favicons: Array<Favicons> = [
     rel: 'icon',
     type: 'image/png',
     sizes: '192x192',
-    href: '/https://www.testfcm.infavicon/android-icon-192x192.png',
+    href: 'https://www.testfcm.in/favicon/android-icon-192x192.png',
   },
   {
     rel: 'icon',

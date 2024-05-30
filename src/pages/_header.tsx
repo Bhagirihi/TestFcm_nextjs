@@ -11,6 +11,7 @@ function Header(props: any) {
   const DarkMode = () => {
     return (
       <button
+      aria-label="them_change"
         className=' w-27 rounded-md border p-3 text-right dark:border-4 dark:border-sunborderd dark:hover:bg-hoverd'
         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       >
@@ -20,15 +21,7 @@ function Header(props: any) {
   };
 
   const google = () => {
-    return (
-      // <button
-      //   className='w-27 mx-2 rounded-md border p-3 text-right dark:border-4 dark:border-sunborderd dark:hover:bg-hoverd'
-      //   onClick={signIn}
-      // >
-      //   <Google className='flex h-5 w-5 items-center text-center' />
-      // </button>
-      <Firebaseauth />
-    );
+    return <Firebaseauth />;
   };
   return (
     <div className='flex  w-full items-center justify-center'>
@@ -36,9 +29,7 @@ function Header(props: any) {
         <Firebase className='flex h-12 w-12 items-center text-center' />
       </div>
       <div className=' w-11/12 text-left'>
-        <h1 className='mx-6  text-base font-bold  md:text-xl'>
-          Test Mobile Notification
-        </h1>
+        <h1 className='mx-6  text-base font-bold  md:text-xl'>Test Mobile Notification</h1>
       </div>
       {DarkMode()}
       {google()}

@@ -1,31 +1,35 @@
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ToastContainer } from 'react-toastify';
 
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
+import Betawarning from '@/pages/_betawarning';
+import Contactus from '@/pages/_contactus';
 import Emailpage from '@/pages/_emailview';
-import Header from '@/pages/_header';
+import Navbar from '@/pages/_navbar';
 import Notification from '@/pages/_notificationfield';
 
 export default function HomePage() {
+  if (process.env.NODE_ENV === 'production') {
+    console.log = () => {};
+    console.error = () => {};
+    console.debug = () => {};
+  }
   return (
     <Layout>
-      {/* <Seo templateTitle='Home' /> */}
-      <Seo />
-
+      <Seo templateTitle='Home' />
+      <SpeedInsights />
       <main>
-        <section className='bg-transparent'>
-          <div className='flex text-center'>
-            <div className='hidden min-h-screen w-1/2  flex-col p-8 dark:bg-darkd  md:flex '>
+        <Navbar />
+        <Betawarning />
+        <section className='my-20 bg-transparent' id='TestFCM'>
+          <div className='flex flex-col-reverse text-center md:flex-row'>
+            <div className=' h-auto w-full flex-col p-8  dark:bg-darkd md:flex md:min-h-screen  md:w-1/2 '>
               <Emailpage />
             </div>
             <div className=' flex min-h-screen w-full p-5  dark:bg-darkl md:w-1/2 md:p-8'>
-              <div className='flex w-full flex-col'>
-                <Header />
-                <div className='w-full  p-1 md:p-6'>
-                  <Notification />
-                </div>
-              </div>
+              <Notification />
             </div>
           </div>
         </section>
