@@ -5,10 +5,11 @@ import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
 import Betawarning from '@/pages/_betawarning';
-import Contactus from '@/pages/_contactus';
+
 import Emailpage from '@/pages/_emailview';
 import Navbar from '@/pages/_navbar';
 import Notification from '@/pages/_notificationfield';
+import { useEffect } from 'react';
 
 export default function HomePage() {
   if (process.env.NODE_ENV === 'production') {

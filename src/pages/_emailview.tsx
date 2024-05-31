@@ -97,10 +97,18 @@ function EmailPage(props: any) {
   return (
     <div className='flex flex-col items-center justify-center'>
       {list.length == 0 || list == undefined ? (
-        <>
-          <Email className='h-5/6  w-7/12' width='60%' height='0' />
-          <h2 className='p-8 text-4xl font-bold leading-relaxed'>Simple interface to Test Mobile Push Notification</h2>
-        </>
+        // <div className='visible'>
+        //   <Email className='h-5/6  w-7/12' width='60%' height='0' />
+        //   <h2 className='p-8 text-4xl font-bold leading-relaxed'>Simple interface to Test Mobile Push Notification</h2>
+        // </div>
+        <div className='hidden md:block'>
+          <div className='flex flex-col items-center justify-center'>
+            <Email className='h-5/6  w-7/12' width='60%' height='0' />
+            <h2 className='p-8 text-4xl font-bold leading-relaxed'>
+              Simple interface to Test Mobile Push Notification
+            </h2>
+          </div>
+        </div>
       ) : (
         <div className='w-full rounded-lg  border bg-white p-2 shadow-md dark:bg-gray-900 sm:p-8'>
           <div className='mb-4 flex items-center justify-between'>

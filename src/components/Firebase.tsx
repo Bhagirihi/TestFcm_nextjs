@@ -1,12 +1,11 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup, getAuth } from 'firebase/auth';
 import { doc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { saveUser } from 'redux/actions/main';
-
 import { getData, setData } from '@/lib/helper/firebaseHelper';
 
 import { firebaseAuth, firebaseDB, firebaseProvider } from '@/components/Initializetion';
@@ -18,7 +17,15 @@ function Firebaseauth(props: any) {
 
   const [userCondition, setuserCondition] = useState(false);
   const router = useRouter();
-  // Sign in and sign out functins
+  const auth = getAuth();
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("found", user)
+      setuserCondition(true)
+    }
+  });
+
   const signIn = () =>
     signInWithPopup(firebaseAuth, firebaseProvider)
       .then((r) => {
@@ -60,7 +67,7 @@ function Firebaseauth(props: any) {
               console.log('notification', notification);
             });
 
-            setuserCondition(true);
+          //  setuserCondition(true);
           } else {
             console.log('not length found', name3);
             name3.map((notification: any) => {
@@ -123,6 +130,7 @@ function Firebaseauth(props: any) {
   };
 
   if (userCondition) {
+
     return authUser();
   }
   return google();
