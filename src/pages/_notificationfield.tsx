@@ -17,7 +17,7 @@ function HomePage(props: any) {
     body: '',
     redirect: '',
     image: '',
-    data:''
+    data: '',
   });
   const [showResults, setShowResults] = useState<boolean>(true);
   const [disable, setDisable] = useState<boolean>(true);
@@ -45,9 +45,9 @@ function HomePage(props: any) {
       // [name]: value,
       [name]: type === 'checkbox' ? checked : value,
     }));
-    if(name == 'data'){
+    if (name == 'data') {
       validateJson(value);
-      value.length == 0  && setIsValid(true)
+      value.length == 0 && setIsValid(true);
     }
     console.log('-------- qu', query);
     if (checked && query.projectID && query.accessToken && query.body && query.fcmtoken && query.title) {
@@ -65,8 +65,8 @@ function HomePage(props: any) {
     const { fcmtoken, serverkey, body, title, data, image, redirect, projectID, accessToken, https } = query;
     let localItem = {};
     validateJson(data);
-    if(!isValid){
-     return  await toast.error(`Oops !! Please check your filled data.`, {
+    if (!isValid) {
+      return await toast.error(`Oops !! Please check your filled data.`, {
         position: 'top-left',
         autoClose: 3000,
         hideProgressBar: false,
@@ -89,8 +89,7 @@ function HomePage(props: any) {
       data: data,
     };
     if (https) {
-
-       if (
+      if (
         projectID == undefined ||
         accessToken == undefined ||
         body == undefined ||
@@ -107,7 +106,7 @@ function HomePage(props: any) {
         };
       }
     } else {
-     if (serverkey == undefined || body == undefined || fcmtoken == undefined || title == undefined) {
+      if (serverkey == undefined || body == undefined || fcmtoken == undefined || title == undefined) {
         return Error('All Field with "*" are required');
       } else {
         localItem = {
@@ -124,7 +123,7 @@ function HomePage(props: any) {
     await setInfo2(true);
   };
   // Form Submit function
-  const validateJson = (jsonInput:any) => {
+  const validateJson = (jsonInput: any) => {
     if (jsonInput.trim() === '') {
       setMessage('Valid JSON (Empty input is considered valid).');
       setIsValid(true);
@@ -143,11 +142,11 @@ function HomePage(props: any) {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    console.log("------",query);
-    validateJson(query?.data)
-    if(isValid){
+    console.log('------', query);
+    validateJson(query?.data);
+    if (isValid) {
       sendNotification(query);
-    }else{
+    } else {
       await toast.error(`Oops !! Please check your filled data.`, {
         position: 'top-left',
         autoClose: 3000,
@@ -324,24 +323,24 @@ function HomePage(props: any) {
               <label htmlFor='default-input' className={`mb-2 block text-sm font-medium `}>
                 Data - (optional)
               </label>
-              {
-                query?.data.length > 0 &&
-
-              <label htmlFor='default-input' className={`mb-2 block text-sm font-medium ${isValid ? 'text-green-900' : 'text-red-900'}`}>
-               {`${message && message}`}
-              </label>
-}
+              {query?.data.length > 0 && (
+                <label
+                  htmlFor='default-input'
+                  className={`mb-2 block text-sm font-medium ${isValid ? 'text-green-900' : 'text-red-900'}`}
+                >
+                  {`${message && message}`}
+                </label>
+              )}
               <textarea
-              rows="5"
-              cols="50"
-              value={query?.data}
+                rows='5'
+                cols='50'
+                value={query?.data}
                 className='block w-full rounded-lg border border-gray-300  p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500 dark:border-borderd dark:bg-darkl dark:text-slate-50   '
                 id='exampleFormControlTextarea1'
                 placeholder="Must be JSON Object like { 'key': 'value' }"
                 name='data'
                 onChange={handleParam()}
               ></textarea>
-
             </div>
           </div>
         )}
@@ -350,7 +349,7 @@ function HomePage(props: any) {
       <div className='mb-4 flex content-center justify-center'>
         <div className='w-2/3   rounded-lg '>
           <button
-            aria-label="send_notification"
+            aria-label='send_notification'
             //  disabled={disable}
             className='w-full rounded-lg  bg-button bg-opacity-30 bg-opacity-60 p-2 text-lg font-medium text-white dark:bg-buttond dark:text-textd '
             type='submit'
@@ -361,7 +360,7 @@ function HomePage(props: any) {
         <div className='md:vis hidden  w-4 md:flex'></div>
         <div className='hidden w-1/3  rounded-lg md:flex '>
           <button
-            aria-label="save_locally"
+            aria-label='save_locally'
             disabled={disable}
             className='w-full  rounded-lg border-2 border-blue-300 bg-transparent p-2 font-medium text-buttonsl text-blue-300 disabled:opacity-75 dark:border-borderd dark:text-buttonsd'
             onClick={savelocal}

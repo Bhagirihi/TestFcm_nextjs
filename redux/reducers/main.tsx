@@ -3,7 +3,7 @@ import * as t from '../types';
 function loadFromLocalStorage(value) {
   try {
     const serializedStore = window.localStorage.getItem(value);
-    if (serializedStore === null) return undefined
+    if (serializedStore === null) return undefined;
     return JSON.parse(serializedStore);
   } catch (e) {
     console.log(e);
@@ -15,7 +15,7 @@ const initState = {
   name: loadFromLocalStorage(t.SET_NAME) || [],
   name2: loadFromLocalStorage(t.SET_NAME_2) || false,
   name3: loadFromLocalStorage(t.SET_NAME_3) || [],
-  user: loadFromLocalStorage(t.SET_USER) || []
+  user: loadFromLocalStorage(t.SET_USER) || [],
 };
 
 const main = (state = initState, action: any) => {
@@ -35,11 +35,11 @@ const main = (state = initState, action: any) => {
         ...state,
         name3: action.payload,
       };
-      case t.SET_USER:
-        return{
-          ...state,
-          user: action.payload
-        }
+    case t.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
     default:
       return { ...state };
   }

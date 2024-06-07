@@ -46,13 +46,16 @@ export const saveUser = (user: any) => (dispatch: any) => {
     type: t.SET_USER,
     payload: user,
   });
+  console.log(user, t.SET_USER, 'IS SAVED');
   saveToLocalStorage(user, t.SET_USER);
 };
 
 export const sendNotification = (value: any) => (dispatch: any) => {
   console.log('------- Action Notification', value);
-  const { fcmtoken, serverkey, body, title, data, redirect, image } = value;
-  const FCMData = {
+  const { fcmtoken, serverkey, body, title, data, redirect, image, http, projectID, accessToken } = value;
+
+  const JSONData = data ? JSON.parse(data) : {};
+  const FCMDataLegacy = {
     to: fcmtoken,
     notification: {
       body: body,
@@ -62,9 +65,32 @@ export const sendNotification = (value: any) => (dispatch: any) => {
       click_action: redirect,
       image: image,
     },
-    data: data,
+    data: JSONData,
   };
-  console.log('Actual data Notification', FCMData);
+
+  const FCMDataHTTPV1 = {
+    message: {
+      token: fcmtoken,
+      notification: {
+        body: body,
+        content_available: true,
+        priority: 'high',
+        title: title,
+        click_action: redirect,
+        image: image,
+      },
+      data: JSONData,
+    },
+  };
+  console.log('HTTP ---->', http);
+  if (!http) {
+    return SendNotificationLegacy(serverkey, FCMDataLegacy);
+  } else {
+    return SendNotificationHTTPV1(projectID, accessToken, FCMDataHTTPV1);
+  }
+};
+
+export const SendNotificationLegacy = (serverkey: any, FCMData: any) => {
   fetch('https://fcm.googleapis.com/fcm/send', {
     method: 'POST',
     headers: {
@@ -75,7 +101,26 @@ export const sendNotification = (value: any) => (dispatch: any) => {
   })
     .then((res) => {
       res.status == '200'
-        ? Success('Notification Send.')
+        ? Success('Notification send successfully using Legacy.')
+        : Error('Could Not Send Notification.');
+    })
+    .catch((e) => {
+      console.log('E', e), Error('Could Not Notificatio Send.');
+    });
+};
+
+export const SendNotificationHTTPV1 = (projectID: any, accessToken: any, FCMData: any) => {
+  fetch(`https://fcm.googleapis.com/v1/projects/${projectID}/messages:send`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(FCMData),
+  })
+    .then((res) => {
+      res.status == '200'
+        ? Success('Notification send successfully using HTTPV1.')
         : Error('Could Not Send Notification.');
     })
     .catch((e) => {
