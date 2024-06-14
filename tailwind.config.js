@@ -41,7 +41,7 @@ module.exports = {
         popupbg: '#2D3848',
         popupkeybg: '#faf08929',
         popupkey: '#FAF089',
-        popupkeyDark:'#aaa039',
+        popupkeyDark: '#aaa039',
         popupkeyfield: '#4A5463',
       },
       keyframes: {
@@ -71,6 +71,6 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/line-clamp')],
   darkMode: 'class',
 };

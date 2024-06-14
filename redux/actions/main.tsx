@@ -50,11 +50,11 @@ export const saveUser = (user: any) => (dispatch: any) => {
   saveToLocalStorage(user, t.SET_USER);
 };
 
-export const sendNotification = (value: any) => (dispatch: any) => {
+export const sendNotification = async (value: any) => async (dispatch: any) => {
   console.log('------- Action Notification', value);
-  const { fcmtoken, serverkey, body, title, data, redirect, image, http, projectID, accessToken } = value;
-
-  const JSONData = data ? JSON.parse(data) : {};
+  const { fcmtoken, serverkey, body, title, data, redirect, image, https, projectID, accessToken } = value;
+  console.log('------- JSONData',data, data != "" ? "1" : "2");
+  let JSONData = data != "" ? await JSON.parse(data) : {};
   const FCMDataLegacy = {
     to: fcmtoken,
     notification: {
@@ -68,22 +68,26 @@ export const sendNotification = (value: any) => (dispatch: any) => {
     data: JSONData,
   };
 
+  JSONData = {
+    ...JSONData,
+    content_available: 'true',
+    priority: 'high',
+    click_action: redirect,
+    image: image,
+  };
   const FCMDataHTTPV1 = {
     message: {
       token: fcmtoken,
       notification: {
         body: body,
-        content_available: true,
-        priority: 'high',
+
         title: title,
-        click_action: redirect,
-        image: image,
       },
       data: JSONData,
     },
   };
-  console.log('HTTP ---->', http);
-  if (!http) {
+  console.log('HTTP ---->', https);
+  if (!https) {
     return SendNotificationLegacy(serverkey, FCMDataLegacy);
   } else {
     return SendNotificationHTTPV1(projectID, accessToken, FCMDataHTTPV1);
@@ -91,13 +95,14 @@ export const sendNotification = (value: any) => (dispatch: any) => {
 };
 
 export const SendNotificationLegacy = (serverkey: any, FCMData: any) => {
+  const data = JSON.stringify(FCMData);
   fetch('https://fcm.googleapis.com/fcm/send', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `key=${serverkey}`,
     },
-    body: JSON.stringify(FCMData),
+    body: data,
   })
     .then((res) => {
       res.status == '200'
@@ -110,6 +115,7 @@ export const SendNotificationLegacy = (serverkey: any, FCMData: any) => {
 };
 
 export const SendNotificationHTTPV1 = (projectID: any, accessToken: any, FCMData: any) => {
+  console.log('JSON.stringify(FCMData)', JSON.stringify(FCMData));
   fetch(`https://fcm.googleapis.com/v1/projects/${projectID}/messages:send`, {
     method: 'POST',
     headers: {

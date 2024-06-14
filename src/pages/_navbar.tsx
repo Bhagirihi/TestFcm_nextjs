@@ -30,30 +30,33 @@ function navbar(props: any) {
 
         <div className='flex space-x-3 rtl:space-x-reverse md:order-2  md:space-x-0'>
           <button
-            aria-label="Google_login"
+            aria-label='Google_login'
             type='button'
-            className='mx-2 rounded-lg border  text-center text-sm font-medium  hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:hover:bg-gray-100 dark:focus:ring-blue-800'
+            className='mx-2 items-center   text-center text-sm font-medium  hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:hover:bg-gray-100 dark:focus:ring-blue-800'
           >
             <Firebaseauth />
           </button>
           <button
-            aria-label="them_change"
+            aria-label='them_change'
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className={`mx-2 rounded-lg border px-4 py-2 text-center text-sm font-medium ${
               theme === 'dark' ? 'text-white' : 'text-black'
-            }   focus:outline-none focus:ring-4 focus:ring-blue-300 dark:hover:bg-gray-100 dark:hover:text-black hover:bg-gray-200 dark:focus:ring-blue-800`}
+            }   hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:hover:bg-gray-100 dark:hover:text-black dark:focus:ring-blue-800`}
           >
             {theme === 'dark' ? (
-              <DarkMoon className={`flex h-5 w-5 items-center text-center ${
-                theme === 'dark' ? 'text-white' : 'text-black'
-              }`} />
+              <DarkMoon
+                className={`flex h-5 w-5 items-center text-center ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+              />
             ) : (
-              <Light fill={'bg-black'} className={`flex h-5 w-5 items-center text-center text-black
-              `} />
+              <Light
+                fill={'bg-black'}
+                className={`flex h-5 w-5 items-center text-center text-black
+              `}
+              />
             )}
           </button>
           <button
-            aria-label="mobile_menu"
+            aria-label='mobile_menu'
             onClick={() => openDrawer()}
             data-collapse-toggle='navbar-cta'
             type='button'

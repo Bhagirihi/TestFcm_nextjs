@@ -21,8 +21,8 @@ function Firebaseauth(props: any) {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log("found", user)
-      setuserCondition(true)
+      console.log('found', user);
+      setuserCondition(true);
     }
   });
 
@@ -67,7 +67,7 @@ function Firebaseauth(props: any) {
               console.log('notification', notification);
             });
 
-          //  setuserCondition(true);
+            //  setuserCondition(true);
           } else {
             console.log('not length found', name3);
             name3.map((notification: any) => {
@@ -120,7 +120,7 @@ function Firebaseauth(props: any) {
     console.log('authUSER', user[0]?.photoURL);
     return (
       <button
-      aria-label="user_signout"
+        aria-label='user_signout'
         className='rounded-md border text-right dark:border dark:border-sunborderd dark:hover:bg-hoverd '
         onClick={() => signOut()}
       >
@@ -130,7 +130,6 @@ function Firebaseauth(props: any) {
   };
 
   if (userCondition) {
-
     return authUser();
   }
   return google();

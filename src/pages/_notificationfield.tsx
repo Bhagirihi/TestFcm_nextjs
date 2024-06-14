@@ -49,8 +49,17 @@ function HomePage(props: any) {
       validateJson(value);
       value.length == 0 && setIsValid(true);
     }
-    console.log('-------- qu', query);
-    if (checked && query.projectID && query.accessToken && query.body && query.fcmtoken && query.title) {
+    console.log(
+      '-------- qu 1',
+      query.https,
+      query.projectID,
+      query.accessToken,
+      query.body,
+      query.fcmtoken,
+      query.title
+    );
+    console.log('-------- qu 2', query.serverkey, query.body, query.fcmtoken, query.title);
+    if (query.https && query.projectID && query.accessToken && query.body && query.fcmtoken && query.title) {
       setDisable(false);
     } else if (query.serverkey && query.body && query.fcmtoken && query.title) {
       setDisable(false);
