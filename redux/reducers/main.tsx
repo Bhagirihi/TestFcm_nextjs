@@ -1,24 +1,13 @@
 import * as t from '../types';
 
-function loadFromLocalStorage(value) {
-  try {
-    const serializedStore = window.localStorage.getItem(value);
-    if (serializedStore === null) return undefined;
-    return JSON.parse(serializedStore);
-  } catch (e) {
-    console.log(e);
-    return undefined;
-  }
-}
-
-const initState = {
-  name: loadFromLocalStorage(t.SET_NAME) || [],
-  name2: loadFromLocalStorage(t.SET_NAME_2) || false,
-  name3: loadFromLocalStorage(t.SET_NAME_3) || [],
-  user: loadFromLocalStorage(t.SET_USER) || [],
+const defaultState = {
+  name: [],
+  name2: false,
+  name3: [],
+  user: [],
 };
 
-const main = (state = initState, action: any) => {
+const main = (state = defaultState, action: any) => {
   switch (action.type) {
     case t.SET_NAME:
       return {

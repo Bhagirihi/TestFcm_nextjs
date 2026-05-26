@@ -6,8 +6,10 @@ import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
 
+import ReduxRehydrate from '@/components/ReduxRehydrate';
 import Seo from '@/components/Seo';
 
+import { ADSENSE_CLIENT_ID } from '@/lib/adsense';
 import { wrapper } from '../../redux/store';
 
 /**
@@ -60,14 +62,18 @@ function MyApp({ Component, pageProps }: AppProps) {
         `}
       </Script>
 
-      <Script
-        async
-        src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363029561384244'
-        crossorigin='anonymous'
-      ></Script>
+      {process.env.NODE_ENV === 'production' && (
+        <Script
+          id='adsense-script'
+          strategy='lazyOnload'
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+          crossOrigin='anonymous'
+        />
+      )}
 
       <Seo />
-      <ThemeProvider attribute='class'>
+      <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+        <ReduxRehydrate />
         <Component {...pageProps} />
       </ThemeProvider>
     </>

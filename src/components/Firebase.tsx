@@ -8,29 +8,30 @@ import { toast } from 'react-toastify';
 import { saveUser } from 'redux/actions/main';
 import { getData, setData } from '@/lib/helper/firebaseHelper';
 
+import logger from '@/lib/logger';
+
 import { firebaseAuth, firebaseDB, firebaseProvider } from '@/components/Initializetion';
 
 import Google from '~/svg/Google.svg';
 
 function Firebaseauth(props: any) {
-  const { saveUser, user, name3 } = props;
+  const { saveUser, user } = props;
 
   const [userCondition, setuserCondition] = useState(false);
   const router = useRouter();
   const auth = getAuth();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log('found', user);
-      setuserCondition(true);
-    }
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setuserCondition(!!currentUser);
+    });
+    return () => unsubscribe();
+  }, [auth]);
 
   const signIn = () =>
     signInWithPopup(firebaseAuth, firebaseProvider)
-      .then((r) => {
-        const data = onAuthStateChanged(firebaseAuth, async (user) => {
-          console.log('user ----- Check ----', user);
+      .then(() => {
+        onAuthStateChanged(firebaseAuth, async (user) => {
           if (user != null) {
             const Authuser = [user?.providerData[0]];
             const rootRef = doc(firebaseDB, 'users', user?.providerData[0].uid);
@@ -41,11 +42,9 @@ function Firebaseauth(props: any) {
               image: user?.providerData[0].photoURL,
               creationTime: user?.metadata?.creationTime,
               lastLogin: user?.metadata?.lastSignInTime,
-              // notifications: [],
             };
 
             await getData(rootRef).then(async (data) => {
-              console.log('USER GET DATA', data);
               if (data?.email) {
                 await toast.success(`Welcome Back !!! ${data?.name}`, {
                   position: 'top-left',
@@ -54,7 +53,6 @@ function Firebaseauth(props: any) {
                   closeOnClick: true,
                   pauseOnHover: true,
                   draggable: true,
-                  progress: undefined,
                 });
               } else {
                 await sendWelcomeEmail(user);
@@ -63,20 +61,10 @@ function Firebaseauth(props: any) {
 
             await setData(rootRef, dataStore);
             saveUser(Authuser);
-            name3.map((notification: any) => {
-              console.log('notification', notification);
-            });
-
-            //  setuserCondition(true);
-          } else {
-            console.log('not length found', name3);
-            name3.map((notification: any) => {
-              console.log('notification', notification);
-            });
           }
         });
       })
-      .catch((e) => console.log('Error', e));
+      .catch((e) => logger(e, 'Firebase sign-in failed'));
 
   const signOut = () =>
     firebaseAuth
@@ -85,7 +73,7 @@ function Firebaseauth(props: any) {
         //window.localStorage.clear(),
         router.reload(window.location.pathname),
       ])
-      .catch((e) => console.log('Error', e));
+      .catch((e) => logger(e, 'Firebase sign-out failed'));
 
   const sendWelcomeEmail = async (user: any) => {
     await fetch('/api/welcome', {
@@ -98,8 +86,7 @@ function Firebaseauth(props: any) {
       },
       method: 'POST',
     })
-      .then((data) => console.log('SUCCESS', data))
-      .catch((e) => console.log('ERROR', e));
+      .catch((e) => logger(e, 'Welcome email failed'));
   };
 
   const google = () => {
@@ -116,18 +103,15 @@ function Firebaseauth(props: any) {
     );
   };
 
-  const authUser = () => {
-    console.log('authUSER', user[0]?.photoURL);
-    return (
-      <button
-        aria-label='user_signout'
-        className='rounded-md border text-right dark:border dark:border-sunborderd dark:hover:bg-hoverd '
-        onClick={() => signOut()}
-      >
-        <img className='h-10 w-10 rounded-md object-cover' src={user[0]?.photoURL} alt='User_Image' />
-      </button>
-    );
-  };
+  const authUser = () => (
+    <button
+      aria-label='user_signout'
+      className='rounded-md border text-right dark:border dark:border-sunborderd dark:hover:bg-hoverd '
+      onClick={() => signOut()}
+    >
+      <img className='h-10 w-10 rounded-md object-cover' src={user[0]?.photoURL} alt='User_Image' />
+    </button>
+  );
 
   if (userCondition) {
     return authUser();
@@ -135,13 +119,10 @@ function Firebaseauth(props: any) {
   return google();
 }
 
-const mapStateToProps = (state: any) => {
-  console.log('FIREBASE STATE ---', state);
-  return {
-    user: state.main.user,
-    name3: state.main.name3,
-  };
-};
+const mapStateToProps = (state: { main: { user: unknown[]; name3: unknown[] } }) => ({
+  user: state.main.user,
+  name3: state.main.name3,
+});
 
 const mapDispatchToProps = {
   saveUser,

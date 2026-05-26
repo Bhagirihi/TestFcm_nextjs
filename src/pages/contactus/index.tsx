@@ -1,12 +1,14 @@
 import Layout from '@/components/layout/Layout';
-import Link from 'next/link';
+import AdSense from '@/components/AdSense';
+import Seo from '@/components/Seo';
+
+import { ADSENSE_SLOTS } from '@/lib/adsense';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import Seo from '@/components/Seo';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import Navbar from '@/pages/_navbar';
-import { Toast } from 'react-toastify/dist/components';
 import { toast } from 'react-toastify';
+
+import Navbar from '@/components/Navbar';
 
 function contactus(props: any) {
   const [fullname, setFullname] = useState('');
@@ -126,108 +128,99 @@ function contactus(props: any) {
   <Navbar />
         <SpeedInsights />
 
-      <section id='LetsConnect' className='mt-10 bg-transparent'>
-        <Link href='#LetsConnect'>
-          <h3 className='pt-10 text-center text-4xl  font-bold text-black dark:text-white'>Connect With US</h3>
-        </Link>
+      <section id='LetsConnect' className='mx-auto max-w-5xl px-4 pt-24 pb-8 text-center sm:px-6'>
+        <span className='tf-badge'>Get in touch</span>
+        <h1 className='mt-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl'>
+          Connect With Us
+        </h1>
+        <p className='mx-auto mt-3 max-w-lg text-sm text-slate-500 dark:text-slate-400'>
+          Have feedback or found an issue? We would love to hear from you.
+        </p>
+        <AdSense slot={ADSENSE_SLOTS.contact} className='mx-auto mt-6 max-w-2xl' format='horizontal' />
       </section>
-      <div className='mt-6 grid grid-cols-1 gap-4 rounded-lg bg-gray-900 p-8 pt-10 dark:bg-darkd  md:h-96 md:grid-cols-2 lg:px-40'>
-        <div className='mx-auto mb-10 md:mt-20'>
-          <div className='badge inline-block rounded-xl bg-green-500'>
-            <p className='px-2 py-1 text-base font-light  text-gray-900 dark:text-white'>Lets talk</p>
+
+      <div className='mx-auto max-w-5xl px-4 pb-24 sm:px-6'>
+        <div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
+          <div className='panel-card flex flex-col justify-center'>
+            <span className='tf-badge w-fit'>Let&apos;s talk</span>
+            <h2 className='mt-4 text-2xl font-bold text-slate-900 dark:text-white'>Upgrading to FCM HTTP v1</h2>
+            <p className='mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300'>
+              TestFCM.in uses the FCM HTTP v1 protocol only. If you encounter any issues,
+              please share feedback using the form on this page.
+            </p>
+            <p className='mt-4 text-sm text-slate-500 dark:text-slate-400'>Thank you for your support.</p>
           </div>
-          <h4 className='mt-4 text-4xl font-bold text-white'>Lets talk about ...</h4>
-          <p className='mt-4 text-sm font-light text-white'>
-            {`As the Firebase FCM Legacy API is deprecated, we are upgrading to
-            the FCM HTTP v1 protocol.  If you encounter any issues while using
-            TestFCM.in, please provide feedback on Connect With US
-            .`}
-          </p>
 
-          <p className='mt-4 text-sm font-light text-white'>{` Thank you for your support.`}</p>
-        </div>
-        <form
-          onSubmit={handleSubmit}
-          className='flex flex-col rounded-lg border-2 border-gray-900 bg-white px-8 py-8 shadow-xl  dark:border-white dark:bg-gray-900'
-        >
-          <h2 className='text-2xl font-bold dark:text-gray-50'>Send a message</h2>
+          <form onSubmit={handleSubmit} className='panel-card space-y-5'>
+            <h2 className='panel-title'>Send a message</h2>
 
-          <label htmlFor='fullname' className='mt-8 font-light text-gray-500 dark:text-gray-50'>
-            Full name
-            <span className='text-red-500 dark:text-gray-50'>*</span>
-          </label>
-          <input
-            type='text'
-            value={fullname}
-            onChange={(e) => {
-              setFullname(e.target.value);
-            }}
-            name='fullname'
-            className='border-b bg-transparent py-2 pl-4 font-light text-gray-500 ring-green-500 focus:rounded-md focus:outline-none focus:ring-1'
-          />
-          {errors?.fullname && <p className='text-red-500'>Fullname cannot be empty.</p>}
+            <div>
+              <label htmlFor='fullname' className='tf-label'>
+                Full name <span className='text-red-500'>*</span>
+              </label>
+              <input
+                type='text'
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+                name='fullname'
+                className='tf-input'
+              />
+              {errors?.fullname && <p className='mt-1 text-xs text-red-500'>Fullname cannot be empty.</p>}
+            </div>
 
-          <label htmlFor='email' className='mt-4 font-light text-gray-500 dark:text-gray-50'>
-            E-mail<span className='text-red-500'>*</span>
-          </label>
-          <input
-            type='email'
-            name='email'
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            className='border-b bg-transparent py-2 pl-4 font-light text-gray-500 ring-green-500 focus:rounded-md focus:outline-none focus:ring-1'
-          />
-          {errors?.email && <p className='text-red-500'>Email cannot be empty.</p>}
+            <div>
+              <label htmlFor='email' className='tf-label'>
+                E-mail <span className='text-red-500'>*</span>
+              </label>
+              <input
+                type='email'
+                name='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className='tf-input'
+              />
+              {errors?.email && <p className='mt-1 text-xs text-red-500'>Email cannot be empty.</p>}
+            </div>
 
-          <label htmlFor='subject' className='mt-4 font-light text-gray-500 dark:text-gray-50'>
-            Subject<span className='text-red-500'>*</span>
-          </label>
-          <input
-            type='text'
-            name='subject'
-            value={subject}
-            onChange={(e) => {
-              setSubject(e.target.value);
-            }}
-            className='border-b bg-transparent py-2 pl-4 font-light text-gray-500 ring-green-500 focus:rounded-md focus:outline-none focus:ring-1'
-          />
-          {errors?.subject && <p className='text-red-500'>Subject cannot be empty.</p>}
-          <label htmlFor='message' className='mt-4 font-light text-gray-500 dark:text-gray-50'>
-            Message<span className='text-red-500'>*</span>
-          </label>
-          <textarea
-            name='message'
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value);
-            }}
-            className='border-b bg-transparent py-2 pl-4 font-light text-gray-500 ring-green-500 focus:rounded-md focus:outline-none focus:ring-1'
-          ></textarea>
-          {errors?.message && <p className='text-red-500'>Message body cannot be empty.</p>}
-          <div className='flex flex-row items-center justify-start'>
-            <button
-            aria-label="Notification_Save"
-              type='submit'
-              className='mt-8 flex flex-row items-center rounded-md bg-indigo-500 px-10 py-2 text-lg font-light text-white hover:bg-gray-400'
-            >
+            <div>
+              <label htmlFor='subject' className='tf-label'>
+                Subject <span className='text-red-500'>*</span>
+              </label>
+              <input
+                type='text'
+                name='subject'
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                className='tf-input'
+              />
+              {errors?.subject && <p className='mt-1 text-xs text-red-500'>Subject cannot be empty.</p>}
+            </div>
+
+            <div>
+              <label htmlFor='message' className='tf-label'>
+                Message <span className='text-red-500'>*</span>
+              </label>
+              <textarea
+                name='message'
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className='tf-input min-h-[120px]'
+              />
+              {errors?.message && <p className='mt-1 text-xs text-red-500'>Message body cannot be empty.</p>}
+            </div>
+
+            <button aria-label='Notification_Save' type='submit' className='tf-btn-primary !w-auto px-8'>
               {buttonText}
             </button>
-          </div>
-
-        </form>
-
+          </form>
+        </div>
       </div>
 
     </Layout>
   );
 }
-const mapStateToProps = (state: any) => {
-  console.log('SATE REDUX', state);
-  return {
-    user: state.main.user,
-  };
-};
+const mapStateToProps = (state: { main: { user: unknown[] } }) => ({
+  user: state.main.user,
+});
 
 export default connect(mapStateToProps, [])(contactus);

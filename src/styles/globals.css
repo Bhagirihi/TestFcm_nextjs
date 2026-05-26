@@ -29,6 +29,14 @@
 }
 
 @layer base {
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100;
+  }
+
   /* inter var - latin */
   @font-face {
     font-family: 'Inter';
@@ -88,6 +96,85 @@
   /* Class to adjust with sticky footer */
   .min-h-main {
     @apply min-h-[calc(100vh-56px)];
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply min-h-screen bg-gradient-to-br from-slate-50 via-white to-sky-50/40 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900;
+  }
+
+  .glass-nav {
+    @apply fixed top-0 z-30 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/80;
+  }
+
+  .panel-card {
+    @apply rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm backdrop-blur-sm dark:border-slate-700/60 dark:bg-slate-900/80 sm:p-8;
+  }
+
+  .panel-header {
+    @apply mb-6 border-b border-slate-200 pb-4 dark:border-slate-700;
+  }
+
+  .panel-title {
+    @apply text-lg font-semibold tracking-tight text-slate-900 dark:text-white;
+  }
+
+  .panel-subtitle {
+    @apply mt-1 text-sm text-slate-500 dark:text-slate-400;
+  }
+
+  .tf-label {
+    @apply mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300;
+  }
+
+  .tf-input {
+    @apply block w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-slate-600 dark:bg-slate-800/80 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-primary-400 dark:focus:bg-slate-800 dark:focus:ring-primary-400/20;
+  }
+
+  .tf-btn-primary {
+    @apply inline-flex w-full items-center justify-center rounded-xl bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500/40 active:scale-[0.98] dark:bg-primary-500 dark:hover:bg-primary-400;
+  }
+
+  .tf-btn-secondary {
+    @apply inline-flex w-full items-center justify-center rounded-xl border border-slate-300 bg-transparent px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-primary-400 hover:bg-primary-50 hover:text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:text-slate-300 dark:hover:border-primary-500 dark:hover:bg-primary-900/30 dark:hover:text-primary-300;
+  }
+
+  .tf-badge {
+    @apply inline-flex items-center rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-700 dark:bg-primary-900/40 dark:text-primary-300;
+  }
+
+
+  .saved-item {
+    @apply flex items-center gap-4 rounded-xl border border-slate-200/80 bg-slate-50/50 p-4 transition hover:border-primary-300/50 hover:bg-primary-50/30 dark:border-slate-700 dark:bg-slate-800/50 dark:hover:border-primary-600/40 dark:hover:bg-primary-900/20;
+  }
+
+  .icon-btn {
+    @apply flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-200 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white;
+  }
+
+  .icon-btn-danger {
+    @apply flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition hover:bg-red-100 hover:text-red-600 dark:text-slate-400 dark:hover:bg-red-900/40 dark:hover:text-red-400;
+  }
+
+  .icon-btn-primary {
+    @apply flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition hover:bg-primary-100 hover:text-primary-600 dark:text-slate-400 dark:hover:bg-primary-900/50 dark:hover:text-primary-400;
+  }
+
+  .guide-step {
+    @apply flex gap-3 rounded-xl border border-slate-200/80 bg-slate-50/60 p-4 dark:border-slate-700 dark:bg-slate-800/40;
+  }
+
+  .guide-step-number {
+    @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary-600 text-xs font-bold text-white dark:bg-primary-500;
+  }
+
+  .guide-field-tag {
+    @apply rounded-md bg-primary-100 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:bg-primary-900/40 dark:text-primary-300;
+  }
+
+  .guide-step-line {
+    @apply text-xs leading-relaxed text-slate-600 before:mr-2 before:text-primary-500 before:content-['•'] dark:text-slate-300;
   }
 }
 

@@ -16,7 +16,7 @@ const defaultMeta = {
    * No need to be filled, will be populated with openGraph function
    * If you wish to use a normal image, just specify the path below
    */
-  image: 'https://www.testfcm.in/images/og.png',
+  image: '/images/og.png',
 };
 
 type SeoProps = {
@@ -59,7 +59,7 @@ export default function Seo(props: SeoProps) {
       "description": "Online Testing Site for Firebase Cloud Messaging (FCM) push notification from your Mobile Applications.",
       "image": {
         "@type": "ImageObject",
-      "url": "https://www.testfcm.in/images/og.png",
+      "url": "/images/og.png",
       "width": "2280",
       "height": "1580"
 },
@@ -72,7 +72,7 @@ export default function Seo(props: SeoProps) {
       "name": "Dhruv Dave",
       "logo": {
         "@type": "ImageObject",
-      "url": "https://www.testfcm.in/favicon/favicon-57x57.png",
+      "url": "/favicon/favicon-57x57.png",
       "width": "57",
       "height": "57"
   }
@@ -97,7 +97,7 @@ export default function Seo(props: SeoProps) {
            FCM messages test notification,ios push notifications,
            push notifications for iOS and android, online notification tester,
            online FCM tester, online push notification test, firebase push notifications,
-           Testing FCM Push Notification (HTTP v1),FCM HTTP, FCMLegacy, FCMHTTP'
+           Testing FCM Push Notification (HTTP v1), FCM HTTP, FCMHTTP'
         />
         <meta property='og:url' content={`${meta.url}${router.asPath}`} />
         <link rel='canonical' href={`${meta.url}${router.asPath}`} />
@@ -127,7 +127,7 @@ export default function Seo(props: SeoProps) {
           <link key={linkProps.href} {...linkProps} />
         ))}
         <meta name='msapplication-TileColor' content='#ffffff' />
-        <meta name='msapplication-TileImage' content='https://www.testfcm.in/favicon/ms-icon-144x144.png' />
+        <meta name='msapplication-TileImage' content='/favicon/ms-icon-144x144.png' />
         <meta name='theme-color' content='#ffffff' />
       </Head>
     </>
@@ -146,74 +146,74 @@ const favicons: Array<Favicons> = [
   {
     rel: 'apple-touch-icon',
     sizes: '57x57',
-    href: 'https://www.testfcm.in/favicon/apple-icon-57x57.png',
+    href: '/favicon/apple-icon-57x57.png',
   },
   {
     rel: 'apple-touch-icon',
     sizes: '60x60',
-    href: 'https://www.testfcm.in/favicon/apple-icon-60x60.png',
+    href: '/favicon/apple-icon-60x60.png',
   },
   {
     rel: 'apple-touch-icon',
     sizes: '72x72',
-    href: 'https://www.testfcm.in/favicon/apple-icon-72x72.png',
+    href: '/favicon/apple-icon-72x72.png',
   },
   {
     rel: 'apple-touch-icon',
     sizes: '76x76',
-    href: 'https://www.testfcm.in/favicon/apple-icon-76x76.png',
+    href: '/favicon/apple-icon-76x76.png',
   },
   {
     rel: 'apple-touch-icon',
     sizes: '114x114',
-    href: 'https://www.testfcm.in/favicon/apple-icon-114x114.png',
+    href: '/favicon/apple-icon-114x114.png',
   },
   {
     rel: 'apple-touch-icon',
     sizes: '120x120',
-    href: 'https://www.testfcm.in/favicon/apple-icon-120x120.png',
+    href: '/favicon/apple-icon-120x120.png',
   },
   {
     rel: 'apple-touch-icon',
     sizes: '144x144',
-    href: 'https://www.testfcm.in/favicon/apple-icon-144x144.png',
+    href: '/favicon/apple-icon-144x144.png',
   },
   {
     rel: 'apple-touch-icon',
     sizes: '152x152',
-    href: 'https://www.testfcm.in/favicon/apple-icon-152x152.png',
+    href: '/favicon/apple-icon-152x152.png',
   },
   {
     rel: 'apple-touch-icon',
     sizes: '180x180',
-    href: 'https://www.testfcm.in/favicon/apple-icon-180x180.png',
+    href: '/favicon/apple-icon-180x180.png',
   },
   {
     rel: 'icon',
     type: 'image/png',
     sizes: '192x192',
-    href: 'https://www.testfcm.in/favicon/android-icon-192x192.png',
+    href: '/favicon/android-icon-192x192.png',
   },
   {
     rel: 'icon',
     type: 'image/png',
     sizes: '32x32',
-    href: 'https://www.testfcm.in/favicon/favicon-32x32.png',
+    href: '/favicon/favicon-32x32.png',
   },
   {
     rel: 'icon',
     type: 'image/png',
     sizes: '96x96',
-    href: 'https://www.testfcm.in/favicon/favicon-96x96.png',
+    href: '/favicon/favicon-96x96.png',
   },
   {
     rel: 'icon',
     type: 'image/png',
     sizes: '16x16',
-    href: 'https://www.testfcm.in/favicon/favicon-16x16.png',
+    href: '/favicon/favicon-16x16.png',
   },
   {
     rel: 'manifest',
-    href: 'https://www.testfcm.in/favicon/manifest.json',
+    href: '/favicon/manifest.json',
   },
 ];
