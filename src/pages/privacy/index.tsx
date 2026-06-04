@@ -17,7 +17,8 @@ const sections = [
   {
     title: 'Cookies and advertising',
     body: [
-      'TestFCM.in uses cookies and similar technologies through Google AdSense and Google Analytics.',
+      'When you first visit TestFCM.in, a cookie consent banner lets you accept or reject non-essential cookies. Analytics and advertising scripts load only if you choose "Accept all".',
+      'TestFCM.in uses cookies and similar technologies through Google AdSense and Google Analytics when you consent.',
       'Google AdSense uses cookies to serve ads based on your prior visits to this site or other websites. Google\'s use of advertising cookies enables it and its partners to serve ads to you.',
       'You may opt out of personalized advertising by visiting Google Ads Settings at https://www.google.com/settings/ads.',
       'Third-party vendors, including Google, use cookies to serve ads. You can opt out of third-party vendor use of cookies by visiting https://www.aboutads.info.',
@@ -111,7 +112,11 @@ export default function PrivacyPage() {
 
             <p className='border-t border-slate-200 pt-6 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400'>
               This policy may be updated from time to time. Continued use of the site after changes constitutes
-              acceptance of the updated policy. See also Google&apos;s{' '}
+              acceptance of the updated policy. See also our{' '}
+              <Link href='/terms' className='text-primary-600 hover:underline dark:text-primary-400'>
+                Terms of Service
+              </Link>
+              , Google&apos;s{' '}
               <a
                 href='https://policies.google.com/privacy'
                 target='_blank'

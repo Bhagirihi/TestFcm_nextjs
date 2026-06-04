@@ -7,7 +7,7 @@ const defaultMeta = {
   title: 'TestFCM | FCM HTTPV1 | Test Mobile Push Notification',
   siteName: 'Push Notification Tester',
   description:
-    'TestFCM is a Online Testing Site for Firebase Cloud Messaging (FCM) push notification from your Mobile Applications.',
+    'TestFCM.in — free online Firebase Cloud Messaging (FCM) HTTP v1 push notification tester with guides, FAQ, and documentation for Android, iOS, and web developers.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
   url: 'https://www.testfcm.in',
   type: 'website',

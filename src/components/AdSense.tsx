@@ -1,6 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 
-import { ADSENSE_CLIENT_ID, isAdSenseEnabled } from '@/lib/adsense';
+import { ADSENSE_CLIENT_ID, isAdAllowedPath, isAdSenseEnabled } from '@/lib/adsense';
+import { hasAnalyticsConsent } from '@/lib/cookie-consent';
 
 declare global {
   interface Window {
@@ -21,10 +23,20 @@ export default function AdSense({
   className = '',
   label = 'Advertisement',
 }: AdSenseProps) {
+  const router = useRouter();
   const pushed = useRef(false);
+  const allowed = isAdAllowedPath(router.pathname);
+  const [consentGranted, setConsentGranted] = useState(false);
 
   useEffect(() => {
-    if (!isAdSenseEnabled || !slot || pushed.current) return;
+    const syncConsent = () => setConsentGranted(hasAnalyticsConsent());
+    syncConsent();
+    window.addEventListener('cookie-consent-change', syncConsent);
+    return () => window.removeEventListener('cookie-consent-change', syncConsent);
+  }, []);
+
+  useEffect(() => {
+    if (!allowed || !isAdSenseEnabled || !slot || !consentGranted || pushed.current) return;
 
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -32,7 +44,9 @@ export default function AdSense({
     } catch {
       // AdSense not loaded yet or blocked by an ad blocker
     }
-  }, [slot]);
+  }, [allowed, consentGranted, slot]);
+
+  if (!allowed || !slot) return null;
 
   if (process.env.NODE_ENV !== 'production') {
     return (
@@ -42,13 +56,13 @@ export default function AdSense({
       >
         <p className='text-xs font-medium text-slate-400 dark:text-slate-500'>{label}</p>
         <p className='mt-1 text-xs text-slate-400 dark:text-slate-500'>
-          {slot ? `Slot ${slot} — dev preview` : 'Set NEXT_PUBLIC_ADSENSE_SLOT_* in .env.local'}
+          Slot {slot} — allowed on {router.pathname}
         </p>
       </div>
     );
   }
 
-  if (!slot || !isAdSenseEnabled) return null;
+  if (!isAdSenseEnabled || !consentGranted) return null;
 
   return (
     <div className={className}>

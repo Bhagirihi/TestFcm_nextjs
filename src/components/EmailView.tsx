@@ -3,12 +3,10 @@ import { arrayRemove, doc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import AdSense from '@/components/AdSense';
 import FcmSetupGuide from '@/components/FcmSetupGuide';
 import SaveNotificationModal from '@/components/SaveNotificationModal';
 import { firebaseDB } from '@/components/Initializetion';
 import { Error } from '@/components/toast';
-import { ADSENSE_SLOTS } from '@/lib/adsense';
 import { isHttpV1SavedItem, isLegacySavedItem } from '@/lib/fcm';
 import { getData, isEmpty, updateData } from '@/lib/helper/firebaseHelper';
 
@@ -170,7 +168,6 @@ function EmailView(props: {
       )}
 
       <FcmSetupGuide />
-      <AdSense slot={ADSENSE_SLOTS.sidebar} className='hidden lg:block' format='rectangle' />
       <SaveNotificationModal />
     </div>
   );

@@ -1,9 +1,7 @@
 import Layout from '@/components/layout/Layout';
-import AdSense from '@/components/AdSense';
 import Seo from '@/components/Seo';
-
-import { ADSENSE_SLOTS } from '@/lib/adsense';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import Link from 'next/link';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -47,7 +45,6 @@ function contactus(props: any) {
     }
 
     setErrors({ ...tempErrors });
-    console.log('errors', errors);
     return isValid;
   };
 
@@ -94,7 +91,6 @@ function contactus(props: any) {
           setShowSuccessMessage(false);
         }, 3000);
       } else {
-        console.log('--- in', error);
         setShowSuccessMessage(false);
         setShowFailureMessage(true);
         setButtonText("Let's Connect");
@@ -119,36 +115,47 @@ function contactus(props: any) {
         return true;
       }
     }
-    console.log('-----LAST', fullname, email, subject, message);
   };
 
   return (
     <Layout>
-  <Seo templateTitle='Contact us' />
-  <Navbar />
-        <SpeedInsights />
+      <Seo
+        templateTitle='Contact us'
+        description='Contact TestFCM.in for support, feedback, and questions about Firebase Cloud Messaging push notification testing.'
+      />
+      <Navbar />
+      <SpeedInsights />
 
       <section id='LetsConnect' className='mx-auto max-w-5xl px-4 pt-24 pb-8 text-center sm:px-6'>
         <span className='tf-badge'>Get in touch</span>
         <h1 className='mt-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl'>
           Connect With Us
         </h1>
-        <p className='mx-auto mt-3 max-w-lg text-sm text-slate-500 dark:text-slate-400'>
-          Have feedback or found an issue? We would love to hear from you.
+        <p className='mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-500 dark:text-slate-400'>
+          Have feedback about TestFCM, found a bug, or need help with FCM HTTP v1? Send us a message. You can also
+          read the <Link href='/faq'>FAQ</Link> and <Link href='/docs'>documentation</Link> first — many common
+          questions are answered there.
         </p>
-        <AdSense slot={ADSENSE_SLOTS.contact} className='mx-auto mt-6 max-w-2xl' format='horizontal' />
+        <p className='mx-auto mt-2 text-sm text-slate-500 dark:text-slate-400'>
+          Email: <a href='mailto:hello@testfcm.in' className='text-primary-600 hover:underline dark:text-primary-400'>hello@testfcm.in</a>
+        </p>
       </section>
 
       <div className='mx-auto max-w-5xl px-4 pb-24 sm:px-6'>
         <div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
-          <div className='panel-card flex flex-col justify-center'>
-            <span className='tf-badge w-fit'>Let&apos;s talk</span>
-            <h2 className='mt-4 text-2xl font-bold text-slate-900 dark:text-white'>Upgrading to FCM HTTP v1</h2>
-            <p className='mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300'>
-              TestFCM.in uses the FCM HTTP v1 protocol only. If you encounter any issues,
-              please share feedback using the form on this page.
+          <div className='panel-card flex flex-col justify-center prose-content !p-6 sm:!p-8'>
+            <span className='tf-badge w-fit'>Support</span>
+            <h2 className='!mt-4 !text-2xl font-bold text-slate-900 dark:text-white'>How we can help</h2>
+            <p>
+              TestFCM.in is a free tool for testing Firebase Cloud Messaging HTTP v1 push notifications. We welcome
+              reports about send errors, UI issues, documentation gaps, and feature suggestions.
             </p>
-            <p className='mt-4 text-sm text-slate-500 dark:text-slate-400'>Thank you for your support.</p>
+            <p>
+              When contacting us about a failed notification, include your error message (without sharing production
+              secrets), platform (Android/iOS/web), and whether you used a fresh OAuth token from{' '}
+              <code>gcloud auth print-access-token</code>.
+            </p>
+            <p>We typically respond within a few business days. Thank you for helping improve TestFCM.</p>
           </div>
 
           <form onSubmit={handleSubmit} className='panel-card space-y-5'>

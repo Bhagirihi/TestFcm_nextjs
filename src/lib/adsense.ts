@@ -10,3 +10,12 @@ export const ADSENSE_SLOTS = {
 export const isAdSenseEnabled =
   process.env.NODE_ENV === 'production' &&
   Boolean(ADSENSE_CLIENT_ID && Object.values(ADSENSE_SLOTS).some(Boolean));
+
+/** Routes where Google ads are allowed (content-rich pages only). */
+export function isAdAllowedPath(pathname: string): boolean {
+  if (!pathname) return false;
+  if (pathname === '/privacy' || pathname === '/terms' || pathname === '/contactus' || pathname === '/404') return false;
+  if (pathname === '/docs' || pathname.startsWith('/docs/')) return true;
+  if (pathname === '/about' || pathname === '/faq' || pathname === '/') return true;
+  return false;
+}
