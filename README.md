@@ -29,7 +29,7 @@ CORS does not block it.
 ## Run locally
 
 ```bash
-npm install
+npm install  # requires Node 24 (Vercel discontinued Node 20)
 cp .env.example .env.local   # fill in Gmail + AdSense values for your own env
 npm run dev
 ```
