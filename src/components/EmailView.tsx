@@ -58,6 +58,10 @@ function EmailView(props: {
     }
 
     const item = (data?.value as Record<string, unknown>) ?? data;
+    if (!item?.accessToken) {
+      Error('Saved requests no longer store access tokens. Fill the send form with a fresh OAuth token to send again.');
+      return;
+    }
     const notification = item?.data as {
       to?: string;
       notification?: { body?: string; title?: string; click_action?: string; image?: string };
@@ -144,7 +148,7 @@ function EmailView(props: {
                     disabled={!canTest || testingIdx === idx}
                     className='icon-btn-primary disabled:cursor-not-allowed disabled:opacity-40'
                     aria-label='Test notification'
-                    title={legacy ? 'Legacy save — re-save with HTTP v1 credentials' : 'Resend notification'}
+                    title={legacy ? 'Legacy save — re-save with HTTP v1 credentials' : 'Resend (needs a fresh OAuth token in the send form)'}
                   >
                     {testingIdx === idx ? (
                       <span className='inline-block h-5 w-5 animate-spin rounded-full border-2 border-primary-600 border-t-transparent' />
