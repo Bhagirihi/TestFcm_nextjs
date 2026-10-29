@@ -8,8 +8,8 @@ const sections = [
   {
     title: 'Information we collect',
     body: [
-      'When you use TestFCM.in to send or save push notification requests, field values you enter (such as Project ID, device token, title, and message) may be stored locally in your browser via localStorage if you choose "Save Locally".',
-      'If you sign in with Google, we store basic profile information (name, email, profile photo) in Firebase to sync saved notifications across devices.',
+      'When you use TestFCM.in to send or save push notification requests, field values you enter (such as Project ID, device token, title, and message) may be stored locally in your browser via localStorage if you choose "Save Locally". Your OAuth access token is never saved — not in localStorage and not in Firebase. A saved request stores everything except the token, so re-sending it needs a fresh token.',
+      'If you sign in with Google, we store basic profile information (name, email, profile photo) in Firebase to sync saved notifications across devices. Saved notifications synced this way also contain no OAuth access token.',
       'When you submit the contact form, we collect your name, email address, subject, and message to respond to your inquiry.',
       'We use Google Analytics to collect anonymous usage data such as pages visited, device type, and general location.',
     ],
@@ -47,7 +47,7 @@ const sections = [
     title: 'Data retention and security',
     body: [
       'Data saved locally remains in your browser until you clear it. Data synced via Google sign-in is stored in Firebase until you delete it or remove your account access.',
-      'OAuth access tokens and device tokens you enter are processed to send notifications and may be stored if you save a request locally. Do not share production credentials on shared devices.',
+      'OAuth access tokens you enter are forwarded server-side only to send a notification and are never stored. Device tokens in saved requests are stored as above. Do not share production credentials on shared devices.',
       'We do not sell your personal information to third parties.',
     ],
   },

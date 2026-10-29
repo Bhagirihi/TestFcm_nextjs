@@ -102,6 +102,9 @@ function NotificationField(props: {
       return Error('All required fields must be filled.');
     }
 
+    // Deliberately NOT saved: the OAuth token is short-lived and powerful.
+    // A saved request stores everything except the token.
+    void accessToken;
     const localItem = {
       data: {
         to: fcmtoken,
@@ -116,7 +119,6 @@ function NotificationField(props: {
         data,
       },
       projectID,
-      accessToken,
     };
 
     setInfo(localItem);

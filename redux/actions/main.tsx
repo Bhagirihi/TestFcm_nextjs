@@ -102,16 +102,20 @@ function sendNotificationHTTPV1(projectID: string, accessToken: string, payload:
   })
     .then(async (res) => {
       const json = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        Error('Could not reach /api/send-fcm. Restart the dev server (npm run dev).');
-        return false;
-      }
       if (json.ok) {
         Success('Notification sent successfully via HTTP v1.');
         return true;
       }
-      const detail = formatProxyError(json.fcmStatus, json.data);
-      Error(detail || 'Could Not Send Notification.');
+      if (res.status === 429) {
+        Error('Too many requests. Please wait a minute and try again.');
+        return false;
+      }
+      if (res.status === 502) {
+        Error('Could not reach FCM. Please try again.');
+        return false;
+      }
+      const detail = formatProxyError(json.fcmStatus || res.status, json.data);
+      Error(json.error || detail || 'Could Not Send Notification.');
       return false;
     })
     .catch((e) => {

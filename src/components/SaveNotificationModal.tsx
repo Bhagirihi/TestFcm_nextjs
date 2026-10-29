@@ -31,12 +31,13 @@ function SaveNotificationModal(props: {
   useEffect(() => {
     if (!savePending) return;
 
+    const { accessToken: _dropped, ...nameWithoutToken } = (name ?? {}) as Record<string, unknown>;
+    void _dropped;
     const name3save = [
       ...name3,
       {
-        projectID: name?.projectID,
-        accessToken: name?.accessToken,
-        data: name?.data,
+        projectID: (nameWithoutToken as Record<string, unknown>)?.projectID,
+        data: (nameWithoutToken as Record<string, unknown>)?.data,
         title: request?.requestName,
       },
     ];
@@ -59,8 +60,10 @@ function SaveNotificationModal(props: {
 
     if (!isData && isuser?.providerData[0]?.uid) {
       const rootRef = doc(firebaseDB, 'users', isuser.providerData[0].uid);
+      const { accessToken: _dropped2, ...valueWithoutToken } = (name ?? {}) as Record<string, unknown>;
+      void _dropped2;
       updateData(rootRef, {
-        notifications: arrayUnion({ title: request.requestName, value: name }),
+        notifications: arrayUnion({ title: request.requestName, value: valueWithoutToken }),
       });
     }
 
@@ -71,7 +74,7 @@ function SaveNotificationModal(props: {
 
   const popupFields = [
     { name: 'Project ID', value: name?.projectID },
-    { name: 'Access Token', value: name?.accessToken },
+    { name: 'Access Token', value: name?.accessToken ? '•••• (not saved — paste a fresh token to resend)' : null },
     { name: 'User Token', value: (name?.data as { to?: string })?.to },
     { name: 'Title', value: (name?.data as { notification?: { title?: string } })?.notification?.title },
     { name: 'Body', value: (name?.data as { notification?: { body?: string } })?.notification?.body },
