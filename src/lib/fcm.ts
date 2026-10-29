@@ -1,7 +1,14 @@
-/** Saved item uses HTTP v1 credentials. */
+/**
+ * Saved-item shapes.
+ *
+ * Since the 2026-10-29 security fix, saved requests deliberately contain
+ * NO OAuth access token. A saved item is therefore an HTTP v1 template
+ * (projectID + payload) — the token is supplied fresh at send time.
+ * Legacy saves used a Server Key only and cannot be resent.
+ */
 export function isHttpV1SavedItem(item: Record<string, unknown> | null | undefined) {
   const data = (item?.value as Record<string, unknown>) ?? item;
-  return Boolean(data?.projectID && data?.accessToken);
+  return Boolean(data?.projectID);
 }
 
 /** Legacy saves used Server Key only — cannot resend after Legacy removal. */
